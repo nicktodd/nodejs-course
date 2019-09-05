@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Inheritance</title>
+    <script>
+        function Car(make, model) {
+            this.make = make;
+            this.model = model;
+
+            this.accelerate = function () {
+                alert("car accelerates");
+            }
+        }
+
+        function SportsCar(turboBoost) {
+
+            this.turboBoost = turboBoost;
+
+            this.accelerate = function ()  {
+                alert("sports car accelerate");
+            }
+        }
+
+        SportsCar.prototype = new Car("Citreon", "Picasso");
+
+        var mySportsCar = new SportsCar(10);
+        var mySportsCar2 = new SportsCar(20);
+        mySportsCar2.make = "Renault";
+
+        alert(mySportsCar.make);
+
+
+
+
+    </script>
+
+</head>
+<body>
+
+
+
+</body>
+</html>

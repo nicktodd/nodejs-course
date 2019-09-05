@@ -1,0 +1,1 @@
+let myPromise  = new Promise();

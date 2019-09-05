@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script language="JavaScript">
+
+
+        // superclass
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        // subclass
+        function Student(subject) {
+            this.subject = subject;
+        }
+
+        // set up the inheritance
+        // we have set the prototype for the student to be a person
+        // so the student prototype now has the same properties as the Person
+        Student.prototype = new Person("Barnie",21);
+
+        // add a function to the person
+        Person.prototype.getDetails = function() {
+            alert(""+this.name + this.age);
+        };
+
+        // add a new function to student
+        Student.prototype.getDetailsWithSubject = function() {
+            alert(this.subject);
+        }
+
+
+        var pers1 = new Person("Fred", 50);
+        var student1 = new Student("Biology");
+
+        //pers1.getDetails();
+        //student1.getDetails();
+        student1.getDetailsWithSubject()
+
+    </script>
+
+
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>

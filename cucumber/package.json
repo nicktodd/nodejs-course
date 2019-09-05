@@ -1,0 +1,16 @@
+{
+  "name": "cucumber-demo",
+  "version": "1.0.0",
+  "description": "Basic BDD cucumber example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Todd",
+  "license": "ISC",
+  "dependencies": {
+    "chromedriver": "^76.0.1",
+    "cucumber": "^5.1.0",
+    "selenium-webdriver": "^4.0.0-alpha.4"
+  }
+}

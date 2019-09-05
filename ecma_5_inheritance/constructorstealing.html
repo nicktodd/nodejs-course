@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script language="JavaScript">
+        // superclass
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+
+            this.getDetails = function() {
+                alert("name is " + this.name + "age is " + this.age);
+            }
+        }
+
+        // demonstrate the problem with constructor stealing
+        Person.prototype.thisMethodIsHidden = function() {
+            alert("hello!");
+        }
+
+
+        // subclass using constructor stealing
+        function Student(name, age, subject)
+        {
+            // using new results in the subtypes not inheriting the properties
+            //this.prototype = new Person(name, age);
+            // explicity call the 'superclass' constructor
+            Person.call(this,name,age);
+            this.subject = subject;
+            // override if I wish
+            this.getDetails = function() {
+                alert("name is " + this.name + "subject is " + this.subject);
+            }
+        }
+
+
+        var pers1 = new Person("Fred", 50);
+        var student1 = new Student("Barnie", 40, "Biology");
+
+        pers1.getDetails();
+        student1.getDetails();
+
+        // and here is the function that should be available but isn't!
+        student1.thisMethodIsHidden();
+
+
+        alert(student1.name);
+
+
+    </script>
+
+
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>

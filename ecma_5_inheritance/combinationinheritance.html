@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script language="JavaScript">
+
+
+
+
+        // superclass
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+
+            this.getDetails = function() {
+                alert("name is " + this.name + "age is " + this.age);
+            }
+        }
+
+        Person.prototype.thisMethodIsHidden = function() {
+            alert("hello!");
+        }
+
+        // subclass using combination inheritance
+        function Student(name, age, subject)
+        {
+            // using new results in the subtypes not inheriting the properties
+            //this.prototype = new Person(name, age);
+            // explicity call the 'superclass' constructor
+            Person.call(this,name,age);
+            this.subject = subject;
+            // override if I wish
+            this.getDetails = function() {
+                alert("name is " + this.name + "subject is " + this.subject);
+            }
+        }
+
+        // Use the Object create to construct the subclass prototype to avoid calling the base constructor
+        Student.prototype = Object.create(Person.prototype);
+
+
+        var pers1 = new Person("Fred", 50);
+        var student1 = new Student("Barnie", 40, "Biology");
+
+        pers1.getDetails();
+        student1.getDetails();
+
+        // and here is the function that works now we combined prototype chaining
+        // and constructor stealing
+        student1.thisMethodIsHidden();
+
+    </script>
+
+
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
