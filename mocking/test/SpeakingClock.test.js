@@ -9,6 +9,7 @@ jest.mock("../src/TimeAsText");
 
 it("should call the collaborators in sequence when you get the time", () => {
     // arrange
+    jest.spyOn(Clock, "getTime").mockReturnValue(new Date(2019,11,1,0,0));
     jest.spyOn(TimeAsText, "getTimeAsText").mockReturnValue("midnight");
     // act
     SpeakingClock.getTime();
