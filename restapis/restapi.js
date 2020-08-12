@@ -1,8 +1,10 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var fs = require('fs')
-var app = express()
-app.use(bodyParser.json())
+var express = require('express');
+var bodyParser = require('body-parser');
+var fs = require('fs');
+var cors = require("cors");
+var app = express();
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/albums', function (req, res) {
   fs.readFile(__dirname + '/' + 'albums.json', 'utf8', function (err, data) {
