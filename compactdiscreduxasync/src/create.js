@@ -1,65 +1,46 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from 'react-redux';
+import {addCD, store, ADD_CD_BEGIN} from './actions';
 
-export default class Create extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeArtist = this.onChangeArtist.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangePrice = this.onChangePrice.bind(this);
-    this.onChangeTracks = this.onChangeTracks.bind(this);
-    this.state = this.resetState();
-    this.state.errors = {};
-  }
 
-  onChangeArtist(e) {
-    this.setState({
-      artist: e.target.value
-    });
-  }
-  onChangeTitle(e) {
-    this.setState({
-      title: e.target.value
-    });
-  }
-
-  onChangePrice(e) {
-    this.setState({
-      price: e.target.value
-    });
-  }
-
-  onChangeTracks(e) {
-    this.setState({
-      tracks: e.target.value
-    });
-  }
-
-  resetState() {
-    return {
-      title: "",
-      artist: "",
-      tracks: "",
-      price: ""
+function mapStateToProps(state) { 
+  console.log(JSON.stringify(state));  
+  return { 
+      error: state.error,
+      loading: state.loading,
+      cd: state.cd
     };
+}
+
+// used in the connect
+// allows you to call dispatchers
+// without referring to the dispatch function directly
+const mapDispatchToProps = {
+  addCD
+};
+
+class Create extends React.Component {
+
+  componentDidMount() {
+    //this.props.addCD();
   }
 
   async onSubmit(e) {
     e.preventDefault();
-
-    const obj = {
-      price: this.state.price,
-      title: this.state.title,
-      artist: this.state.artist,
-      tracks: this.state.tracks
+    let cd = {
+      title: this.getTitle.value,
+      artist: this.getArtist.value,
+      price: this.getPrice.value,
+      tracks: this.getTracks.value
     };
-    axios
-      .post("http://localhost:8081/music", obj)
-      .then(res => {
-        console.log(res.data);
-        this.props.history.push("/");
-      })
-      .catch(error => console.log(error));
+    this.props.addCD(cd);
+
+    store.dispatch({
+      type: ADD_CD_BEGIN,
+      cd: cd
+    });
+
   }
 
   render() {
@@ -75,8 +56,8 @@ export default class Create extends Component {
                 id="title"
                 type="text"
                 className="form-control"
-                value={this.state.title}
-                onChange={this.onChangeTitle}
+                ref={(input)=>this.getTitle = input} 
+                
               />
             </div>
             <div className="form-group col-md-5">
@@ -85,8 +66,8 @@ export default class Create extends Component {
                 id="artist"
                 type="text"
                 className="form-control"
-                value={this.state.artist}
-                onChange={this.onChangeArtist}
+                ref={(input)=>this.getArtist = input} 
+                
               />
             </div>
           </div>
@@ -97,8 +78,8 @@ export default class Create extends Component {
                 id="price"
                 type="number"
                 className="form-control"
-                value={this.state.price}
-                onChange={this.onChangePrice}
+                ref={(input)=>this.getPrice = input} 
+                
               />
             </div>
             <div className="form-group col-md-5">
@@ -107,8 +88,8 @@ export default class Create extends Component {
                 id="tracks"
                 type="number"
                 className="form-control"
-                value={this.state.tracks}
-                onChange={this.onChangeTracks}
+                ref={(input)=>this.getTracks = input} 
+                
               />
             </div>
           </div>
@@ -125,3 +106,4 @@ export default class Create extends Component {
     );
   }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(Create);

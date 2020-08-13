@@ -2,13 +2,23 @@
 // import the various actions from actions.js which are used in the reducer
 import { FETCH_CDS_BEGIN,
  FETCH_CDS_SUCCESS,
- FETCH_CDS_FAILURE } from './actions'
+ FETCH_CDS_FAILURE } from './actions';
+
+ import { ADD_CD_BEGIN,
+  ADD_CD_SUCCESS,
+  ADD_CD_FAILURE } from './actions';
 
  // an initial state variable used at the start
  const initialState = {
     cds: [],
     loading: false,
-    error: null
+    error: null,
+    cd: {
+      title: "",
+      artist: "",
+      price: 0,
+      tracks: 0
+  }
   };
 
   // the reducer is here. It is going to return different states depending upon the action
@@ -33,6 +43,25 @@ import { FETCH_CDS_BEGIN,
           error: action.payload.error,
           cds: []
         };
+        case ADD_CD_BEGIN:
+          return {
+            ...state,
+            loading:true,
+            error: null
+          }
+        case ADD_CD_SUCCESS:
+          return {
+            ...state,
+            loading: false,
+            
+          };
+        case ADD_CD_FAILURE:
+          return {
+            ...state,
+            loading: false,
+            error: action.payload.error,
+            
+          };
       default:
           return state;
       }  
