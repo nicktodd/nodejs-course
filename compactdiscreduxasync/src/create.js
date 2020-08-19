@@ -22,10 +22,6 @@ const mapDispatchToProps = {
 
 class Create extends React.Component {
 
-  componentDidMount() {
-    //this.props.addCD();
-  }
-
   async onSubmit(e) {
     e.preventDefault();
     let cd = {
@@ -35,12 +31,6 @@ class Create extends React.Component {
       tracks: this.getTracks.value
     };
     this.props.addCD(cd);
-
-    store.dispatch({
-      type: ADD_CD_BEGIN,
-      cd: cd
-    });
-
   }
 
   render() {

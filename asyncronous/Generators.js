@@ -1,14 +1,14 @@
 function* generatorFunction(){
   console.log("I've not yielded yet");
-  value = yield console.log('I will print this, then yield'); //The value will not be assigneds until the second .next() call
+  let value = yield // this will assign value to whatever is passed in
+  console.log('I will print this, then yield'); //The value will not be assigned until the second .next() call
   console.log(value);
 }
 
 var generator = generatorFunction();
 
-generator; //running the function like this doesn't do anything because the generator starts in the suspended state.
-
 generator.next();
+
 generator.next('This text was passed into the yield value');
 //the output of this code is as follows:
 /*
@@ -21,15 +21,17 @@ generator.next('This text was passed into the yield value');
 
 // fibonachi generator
 function* fibonacciGenerator () {
-  var current = 0, next = 1, swap
+  let current = 0, next = 1, swap
   while (true) {
-    swap = current, current = next
+    swap = current; 
+    current = next
     next = swap + next
-    yield current
+    console.log("the next number the generator will be providing is " + current);
+    yield current // set this as the value for the caller
   }
 }
 
-fibo = fibonacciGenerator();
+let fibo = fibonacciGenerator();
 for (var i=0; i<10; i++) {
-  console.log(fibo.next().value);
+  console.log("The number returned from the generator is " + fibo.next().value);
 }

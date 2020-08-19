@@ -13,12 +13,7 @@ import { FETCH_CDS_BEGIN,
     cds: [],
     loading: false,
     error: null,
-    cd: {
-      title: "",
-      artist: "",
-      price: 0,
-      tracks: 0
-  }
+   
   };
 
   // the reducer is here. It is going to return different states depending upon the action
