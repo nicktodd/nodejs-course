@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { connect } from 'react-redux';
-import {addCD, store, ADD_CD_BEGIN} from './actions';
+import React, { useState, useEffect } from "react";
+import { getCDById} from './actions';
 
 import { useSelector, useDispatch } from "react-redux";
 
 
-function Create(props) {
+function Edit(props) {
 
   const cdState = useSelector((state) => state);
-  const {cd, loading, error} = cdState;
+  const {cdToEdit, loading, error} = cdState;
   const dispatch = useDispatch();
 
 
@@ -19,20 +17,33 @@ function Create(props) {
   const [price, setPrice] = useState("");
   
 
+  useEffect(() => {
+    dispatch(getCDById("1"));
+    return () => {
+      //
+    };
+  }, []);
+
 
   const submitHandler = async(e) => {
     e.preventDefault();
     // this is empty
-    cd.title = title;
-    cd.artist = artist;
-    cd.price = price;
-    cd.tracks = tracks;
+    cdToEdit.title = title;
+    cdToEdit.artist = artist;
+    cdToEdit.price = price;
+    cdToEdit.tracks = tracks;
 
-    dispatch(addCD(cd));
+    //dispatch(addCD(cd));
   };
-
+  //console.log("title is " + cd.title);
   return (
+      
     <>
+     {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>{error}</div>
+      ) : (
       <div style={{ marginTop: 10 }}>
         <h3>Add New Training Album</h3>
 
@@ -76,6 +87,7 @@ function Create(props) {
                 id="tracks"
                 type="number"
                 className="form-control"
+                
                 onChange={(e) => setTracks(e.target.value)}
               />
             </div>
@@ -90,8 +102,10 @@ function Create(props) {
           </div>
         </form>
       </div>
+       )}
+       ;
       </>
   );
 }
 
-export default Create;
+export default Edit;

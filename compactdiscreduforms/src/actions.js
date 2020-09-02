@@ -1,10 +1,11 @@
 // this is not changed for functional components
 
 import axios from "axios";
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import cdsReducer from './CDReducer'
-import { composeWithDevTools } from 'redux-devtools-extension';
+
+
+
+// original without the plugin
+//export const store = createStore(cdsReducer, initialState, applyMiddleware(thunk));
 
 // these constants can be used as the names of the actions 
 // so you minimise using the wrong string
@@ -111,20 +112,4 @@ export function getCDById(id) {
     .catch(error => dispatch(getCDFailure(error)));
   }
 }
-
-const initialState = {
-  cds: [],
-  cd: {}
-}
-
-// this is how you can enable the redux plugin in chrome
-// https://github.com/zalmoxisus/redux-devtools-extension#usage
-
-export const store = createStore(cdsReducer, initialState, composeWithDevTools(
-  applyMiddleware(thunk),
-  // other store enhancers if any
-));
-
-// original without the plugin
-//export const store = createStore(cdsReducer, initialState, applyMiddleware(thunk));
 

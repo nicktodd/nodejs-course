@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 function Create(props) {
 
-  const cdState = useSelector((state) => state);
+  const cdState = useSelector((state) => state.cdsReducer);
   const {cd, loading, error} = cdState;
   const dispatch = useDispatch();
 
