@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        var request = new XMLHttpRequest();
+        request.open("GET", "burgerRestaurantMenu.json", true);
+        request.onreadystatechange = handleCompletedRequest;
+        request.send(null);
+
+        function handleCompletedRequest() {
+            if (request.readyState == 4 && request.status==200) {
+                var ourdiv = document.getElementById("container");
+                var menu = JSON.parse(request.responseText);
+                ourdiv.innerHTML = menu.RestaurantDescription.Name ;
+            }
+        }
+
+
+
+    </script>
+
+
+</head>
+<body>
+
+<div id="container"></div>
+
+</body>
+</html>

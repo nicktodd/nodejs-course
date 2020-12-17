@@ -1,0 +1,70 @@
+[
+  {
+    "ViewItemLiteResponse": {
+      "Item": [
+        {
+          "IsRefreshPage": false,
+          "ViewerItemRelation": "NONE",
+          "EndDate": {
+            "Time": "12:01:31 GMT",
+            "Date": "02 Feb, 2017"
+          },
+          "LastModifiedDate": 1486033789000,
+          "CurrentPrice": {
+            "CleanAmount": "205.00",
+            "Amount": 205.0,
+            "MoneyStandard": "\u0026#163;205.00",
+            "CurrencyCode": "GBP",
+            "CurrencySymbol": "\u0026#163;"
+          },
+          "IsEnded": false,
+          "AccessedDate": 1486036677000,
+          "BidCount": 5,
+          "MinimumToBid": {
+            "CleanAmount": "210.00",
+            "Amount": 210.0,
+            "MoneyStandard": "\u0026#163;210.00",
+            "CurrencyCode": "GBP",
+            "CurrencySymbol": "\u0026#163;"
+          },
+          "TimeLeft": {
+            "SecondsLeft": 34,
+            "MinutesLeft": 3,
+            "HoursLeft": 0,
+            "DaysLeft": 0
+          },
+          "Id": 152416169870,
+          "IsFinalized": false,
+          "ViewerItemRelationId": 0,
+          "IsAutoRefreshEnabled": true,
+          "IsReserve": true,
+          "IsReserveMet": false,
+          "PowerBidVal1": {
+            "CleanAmount": "210.00",
+            "Amount": 210.0,
+            "MoneyStandard": "\u0026#163;210.00",
+            "CurrencyCode": "GBP",
+            "MoneyStandardNoDecimals": "\u0026#163;210",
+            "CurrencySymbol": "\u0026#163;"
+          },
+          "PowerBidVal2": {
+            "CleanAmount": "215.00",
+            "Amount": 215.0,
+            "MoneyStandard": "\u0026#163;215.00",
+            "CurrencyCode": "GBP",
+            "MoneyStandardNoDecimals": "\u0026#163;215",
+            "CurrencySymbol": "\u0026#163;"
+          },
+          "PowerBidVal3": {
+            "CleanAmount": "230.00",
+            "Amount": 230.0,
+            "MoneyStandard": "\u0026#163;230.00",
+            "CurrencyCode": "GBP",
+            "MoneyStandardNoDecimals": "\u0026#163;230",
+            "CurrencySymbol": "\u0026#163;"
+          }
+        }
+      ]
+    }
+  }
+]
