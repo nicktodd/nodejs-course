@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $.ajax({
+                url:"burgerRestaurantMenu.json",
+                success:function(result){
+                    $("#restaurantName").html(result.RestaurantDescription.Name);
+                    $("#firstMenuItem").html(result.RestaurantMenuCategories[0].Items[0].Title);
+                }
+        })});
+
+    </script>
+</head>
+<body>
+<h1>Menu</h1>
+
+Below are some samples from out fantastic menu.
+<br>
+
+Restaurant:<br>
+<div id="restaurantName"></div>
+
+
+Menu Items:<br>
+<div id="firstMenuItem"></div>
+
+</body>
+</html>

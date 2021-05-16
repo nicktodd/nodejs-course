@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script language="JavaScript">
+
+        // can create a request object for more complex requests
+        /*var request = new Request('burgerRestaurantMenu.json', {
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            method: "GET"
+        });*/
+
+        // we don't need a request object for a simple GET request for some JSON
+        $(document).ready(function() {
+            // fetches and promises
+            fetch('burgerRestaurantMenu.json')
+                .then(function(result) {
+                    return result.json(); // a promise of JSON
+                }).then(function(menu) { // the menu is now the JSON
+                    $("#restaurantName").html(menu.RestaurantDescription.Name);
+                    $("#firstMenuItem").html(menu.RestaurantMenuCategories[0].Items[0].Title);
+            });
+        });
+
+
+
+    </script>
+</head>
+<body>
+<h1>Menu</h1>
+
+Below are some samples from out fantastic menu.
+<br>
+
+Restaurant:<br>
+<div id="restaurantName"></div>
+
+
+Menu Items:<br>
+<div id="firstMenuItem"></div>
+
+</body>
+</html>
