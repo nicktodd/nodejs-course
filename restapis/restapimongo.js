@@ -20,7 +20,7 @@ mongo
     process.exit();
   });
 
-app.get("/music", (req, res) => {
+app.get("/albums", (req, res) => {
   CompactDisc.find()
     .then(discs => {
       res.send(discs);
@@ -32,7 +32,7 @@ app.get("/music", (req, res) => {
     });
 });
 
-app.get("/music/:id", function(req, res) {
+app.get("/albums/:id", function(req, res) {
   CompactDisc.findById(req.params.id)
     .then(cd => {
       if (!cd) {
@@ -54,7 +54,7 @@ app.get("/music/:id", function(req, res) {
     });
 });
 
-app.post("/music", function(req, res) {
+app.post("/albums", function(req, res) {
   let newCD = new CompactDisc({
     title: req.body.title,
     artist: req.body.artist,
