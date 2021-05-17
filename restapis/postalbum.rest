@@ -1,0 +1,9 @@
+POST http://localhost:8081/albums
+Content-Type: application/json
+
+{
+    "title": "Violator",
+    "artist": "Depeche Mode",
+    "price": "12.99",
+    "tracks": 12
+}
