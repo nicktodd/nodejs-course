@@ -17,9 +17,6 @@ class App extends React.Component {
     this.state = { cds: [] };
   }*/
 
-
-  
-
   /*async componentDidMount() {
     axios
       .get("http://localhost:8081/albums")
