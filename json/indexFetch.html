@@ -15,17 +15,33 @@
         });*/
 
         // we don't need a request object for a simple GET request for some JSON
-        $(document).ready(function() {
-            // fetches and promises
-            fetch('burgerRestaurantMenu.json')
-                .then(function(result) {
-                    return result.json(); // a promise of JSON
-                }).then(function(menu) { // the menu is now the JSON
-                    $("#restaurantName").html(menu.RestaurantDescription.Name);
-                    $("#firstMenuItem").html(menu.RestaurantMenuCategories[0].Items[0].Title);
-            });
-        });
+        // this example uses promises explicitly
+        // $(document).ready(function() {
+        //     // fetches and promises
+        //     fetch('burgerRestaurantMenu.json')
+        //         .then(function(result) {
+        //             return result.json(); // a promise of JSON
+        //         }).then(function(menu) { // the menu is now the JSON
+        //             $("#restaurantName").html(menu.RestaurantDescription.Name);
+        //             $("#firstMenuItem").html(menu.RestaurantMenuCategories[0].Items[0].Title);
+        //     });
+        // });
 
+        //this example uses async / await syntax instead
+        async function getMenu() {
+            try {
+                let response = await fetch('burgerRestaurantMenu.json');
+                let menu = await response.json();
+                $("#restaurantName").html(menu.RestaurantDescription.Name);
+                $("#firstMenuItem").html(menu.RestaurantMenuCategories[0].Items[0].Title);         
+           }
+           catch (e) {
+               console.log(e);
+           }
+
+        $(document).ready(function() {
+            getMenu();
+        });
 
 
     </script>

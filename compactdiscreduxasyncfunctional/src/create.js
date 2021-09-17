@@ -20,7 +20,7 @@ function Create(props) {
   
 
 
-  const submitHandler = async(e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     // this is empty
     cd.title = title;

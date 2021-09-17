@@ -1,64 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-// declare some data
-var data = [
-  {
-    title: "Jagged Little Pill",
-    artist: "Alanis Morisette",
-    tracks: [
-      "All I Really Want",
-      "You Oughta Know",
-      "Perfect",
-      "Hand In My Pocket",
-      "Right Through You",
-      "Forgiven",
-      "You Learn",
-      "Head Over Feet",
-      "Mary Jane",
-      "Ironic",
-      "Not the Doctor",
-      "Wake Up",
-    ],
-  },
-  {
-    title: "Codes and Keys",
-    artist: "Death Cab for Cutie",
-    tracks: [
-      "Hope Is a Fire",
-      "Codes and Keys",
-      "Some Boys",
-      "Doors Unlocked and Open",
-      "You Are a Tourist",
-      "Unobstructed Views",
-      "Monday Morning",
-      "Portable Television",
-      "Underneath the Sycamore",
-      "St. Peter's Cathedral",
-      "Stay Young, Go Dancing",
-    ],
-  },
-  {
-    title: "Sunshine",
-    artist: "S Club 7",
-    tracks: [
-      "Don't Stop Movin'",
-      "Show Me Your Colours",
-      "You",
-      "Have You Ever",
-      "Good Times",
-      "Boy Like You",
-      "Sunshine",
-      "Dance Dance Dance",
-      "It's Alright",
-      "Stronger",
-      "Summertime Feeling",
-      "I Will Find You",
-      "Never Had a Dream Come True",
-    ],
-  },
-];
-
+import axios from "axios";
+import Component from "react";
 // define some functional components
 const AlbumTitle = (props) => <h2 class="album-title">{props.title}</h2>;
 const AlbumArtist = (props) => <h3 class="album-artist">{props.name}</h3>;
@@ -100,12 +43,31 @@ class Album extends React.Component {
 }
 
 // another functional component for the top level element
-const App = (props) => {
-  return (
+class App extends React.Component {
+
+  constructor(props)
+  {
+    super(props);
+    this.state = {music: []};
+  }
+
+  componentDidMount() {
+    axios.get("/music.json").then(response => {
+      //console.log(response.data);
+      this.setState({music: response.data});
+      //console.log(response.data);
+    })
+    .catch((e) => {
+      console.log("Error occurred " + e);
+    });
+  }
+
+  render() {
+    return (
     <article>
       <h1>Record Collection</h1>
-      <div class="albums">
-        {props.data.map((album, i) => (
+      <div className="albums">
+        {this.state.music.map((album, i) => (
           <Album
             title={album.title}
             artist={album.artist}
@@ -114,6 +76,7 @@ const App = (props) => {
         ))}
       </div>
     </article>
-  );
+  )};
 };
-ReactDOM.render(<App data={data} />, document.getElementById("root"));
+
+ReactDOM.render(<App/>, document.getElementById("root"));

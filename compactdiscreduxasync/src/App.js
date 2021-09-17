@@ -71,8 +71,8 @@ class App extends React.Component {
           <table border="1" width="80%">
             <thead>
               <tr>
-                <th>Artist</th>
                 <th>Title</th>
+                <th>Artist</th>
               </tr>
             </thead>
             <tbody>{this.tabRow()}</tbody>

@@ -37,10 +37,10 @@ export default class Create extends Component {
 
   resetState() {
     return {
-      title: "",
-      artist: "",
-      tracks: "",
-      price: ""
+      title: "Abba Gold",
+      artist: "Abba",
+      tracks: "12",
+      price: "7.99"
     };
   }
 
