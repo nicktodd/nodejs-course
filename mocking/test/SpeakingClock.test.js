@@ -17,8 +17,8 @@ it("should call the collaborators in sequence when you get the time", () => {
     SpeakingClock.getTime();
     // assert
     expect(Clock.getTime).toBeCalledTimes(1);
-    //expect(TimeAsText.getTimeAsText).toBeCalledTimes(1);
+    expect(TimeAsText.getTimeAsText).toBeCalledTimes(1);
     expect(TimeAsText.getTimeAsText).toBeCalledWith(midnightDate);
     expect(SpeechEngine.sayTime).toBeCalledWith("midnight");
-    //expect(SpeechEngine.sayTime).toBeCalledTimes(1);
+    expect(SpeechEngine.sayTime).toBeCalledTimes(1);
 });
