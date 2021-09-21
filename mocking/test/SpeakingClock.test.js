@@ -16,6 +16,7 @@ it("should call the collaborators in sequence when you get the time", () => {
     // act
     SpeakingClock.getTime();
     // assert
+    // not all of these expectations are required as some are implied by the others
     expect(Clock.getTime).toBeCalledTimes(1);
     expect(TimeAsText.getTimeAsText).toBeCalledTimes(1);
     expect(TimeAsText.getTimeAsText).toBeCalledWith(midnightDate);
