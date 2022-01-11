@@ -1,3 +1,5 @@
+
+// here is a complex object
 let complexObject = {
     name: "Fred",
     age: 30,
