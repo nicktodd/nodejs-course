@@ -9,7 +9,7 @@ let complexObject = {
 }
 
 let {name, address} = complexObject;
-
+// this line mentions deprecation but it is not relevant
 console.log(name);
 
 console.log(address.line2);
