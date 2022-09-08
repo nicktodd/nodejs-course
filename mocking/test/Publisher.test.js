@@ -1,5 +1,5 @@
+const Publisher = require("../src/Publisher");
 const Subscriber = require("../src/Subscriber");
-const Publisher = import("../src/Publisher");
 
 jest.mock("../src/Subscriber");
 
@@ -7,9 +7,9 @@ jest.mock("../src/Subscriber");
 it("should publish a message to a subscriber when asked to", () => {
     // arrange
     let message = "hello world";
-    let publisher = new Publisher.Publisher(Subscriber);
+    let publisher = new Publisher(Subscriber.receiveMessage);
     // act    
-    publisher.publish(message);
+    publisher.publishMessage(message);
     // assert
     expect(Subscriber.receiveMessage).toBeCalledTimes(1);
 });
