@@ -1,5 +1,3 @@
-const sub = require("./Subscriber")
-
 class Publisher {
 
     constructor(subscriber) {
@@ -9,8 +7,5 @@ class Publisher {
     publishMessage(message) {
         this.subscriber(message);
     }
-     
-
 }
-
 module.exports = Publisher;

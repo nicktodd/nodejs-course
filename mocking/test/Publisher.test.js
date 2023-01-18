@@ -3,7 +3,6 @@ const Subscriber = require("../src/Subscriber");
 
 jest.mock("../src/Subscriber");
 
-
 it("should publish a message to a subscriber when asked to", () => {
     // arrange
     let message = "hello world";
