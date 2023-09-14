@@ -1,0 +1,9 @@
+POST http://localhost:8081/albums
+Content-Type: application/json
+
+{
+    "title": "Justin's Greatest Hits",
+    "artist": "Justin Bieber",
+    "price": 12.99
+
+}

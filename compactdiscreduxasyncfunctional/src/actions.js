@@ -75,7 +75,7 @@ export function fetchCDs() {
   return dispatch => {
     dispatch(fetchCDsBegin());
     axios
-    .get("http://localhost:8081/music")
+    .get("http://localhost:8081/albums")
     .then(response => {
       console.log(response.data);
       dispatch(fetchCDsSuccess(response.data));
@@ -89,7 +89,7 @@ export function addCD(cd) {
   return dispatch => {
     dispatch(addCDBegin());
     axios
-    .post("http://localhost:8081/music", cd)
+    .post("http://localhost:8081/albums", cd)
     .then(response => {
       console.log(response.data);
       dispatch(addCDSuccess(response.data));
@@ -103,7 +103,7 @@ export function getCDById(id) {
   return dispatch => {
     dispatch(getCDBegin());
     axios
-    .get("http://localhost:8081/music/" + id)
+    .get("http://localhost:8081/albums/" + id)
     .then(response => {
       console.log(response.data);
       dispatch(getCDSuccess(response.data));

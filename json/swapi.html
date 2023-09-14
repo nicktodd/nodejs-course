@@ -18,13 +18,13 @@
          .then((starWarsDataResponse) => {
             starWarsDataResponse.json()
               .then((planet) => {
-                    document.getElementById("starwars").innerHTML = planet.name;
+                    document.getElementById("starwars").innerHTML += planet.name;
                 }) 
          });
     }
 
-    getSomeStarWarsStuffWithThen();
-
+    getSomeStarWarsStuff();
+    document.getElementById("starwars").innerHTML = "hello world";
 </script>
 
 </body>
