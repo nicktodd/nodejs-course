@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Example</title>
+    <script>
+        async function getRestData() {
+            // invoked an API from JavaScript
+            let response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+            let data = await response.json();
+            console.log(data.title);
+            // put the data from the server into the web page
+            document.getElementById("result").innerHTML = data.title;
+            document.getElementById("user").innerHTML = data.userId;
+        }
+
+        getRestData();
+
+    </script>
+
+</head>
+<body>
+
+    <h1>REST API Example</h1>
+    <div id="result"></div>
+    <div id="user"></div>
+</body>
+</html>

@@ -7,9 +7,15 @@
         <button onclick="alert('hello')">Won't work for a bit</button>
         <script>
             let seconds = 10;
+            // date 10 seconds in the future
             let waitTill = new Date(new Date().getTime() + seconds * 1000);
             // let's block the browser thread
-            while(waitTill > new Date()){}
+            
+            // if waitTill date is later than now, then loop again
+            while(waitTill > new Date()){
+                // simulates something that takes time
+                // sometimes called blocking code
+            }
             
         </script>
     </body>

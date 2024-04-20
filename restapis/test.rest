@@ -1,0 +1,4 @@
+POST https://3tixzols89.execute-api.eu-west-1.amazonaws.com/prod/predict
+Content-Type: application/json
+
+{"data":"61, 0, 33.915, 0, 0, 4"}

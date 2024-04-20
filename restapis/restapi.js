@@ -49,14 +49,13 @@ app.delete('/albums/:id', function (req, res) {
 
 app.post('/albums', function (req, res) {
   // parses the request url
-
   var newAlbum = req.body
-  fs.readFile(__dirname + '/' + 'albums.json', 'utf8', 		function (err, data) {
-		   data = JSON.parse(data)
-		   data.push(newAlbum)
-		   res.end(JSON.stringify(data))
+  fs.readFile(__dirname + '/' + 'albums.json', 'utf8', 		function (err, fileAsText) {
+		   albumsObject = JSON.parse(fileAsText)
+		   albumsObject.push(newAlbum)
+		   res.end(JSON.stringify(albumsObject))
 		   fs.writeFile(__dirname + '/' + 'albums.json',
-      JSON.stringify(data), function
+      JSON.stringify(albumsObject), function
       (err) {
         if (err) { return console.log(err) }
       })
