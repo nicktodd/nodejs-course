@@ -7,9 +7,9 @@ function* generatorFunction(){
 
 var generator = generatorFunction();
 
-generator.next();
+//generator.next();
 
-generator.next('This text was passed into the yield value');
+//generator.next('This text was passed into the yield value');
 //the output of this code is as follows:
 /*
   this is thew first time i hjave been executed

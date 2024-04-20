@@ -48,6 +48,7 @@ import { FETCH_CDS_BEGIN,
           return {
             ...state,
             loading: false,
+            cd: action.payload.cd
             
           };
         case ADD_CD_FAILURE:

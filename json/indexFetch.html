@@ -29,11 +29,16 @@
 
         //this example uses async / await syntax instead
         async function getMenu() {
-            let response = await fetch('burgerRestaurantMenu.json');
-            let menu = await response.json();
-            $("#restaurantName").html(menu.RestaurantDescription.Name);
-             $("#firstMenuItem").html(menu.RestaurantMenuCategories[0].Items[0].Title);
-        }        
+            try {
+                let response = await fetch('burgerRestaurantMenu.json');
+                let menu = await response.json();
+                $("#restaurantName").html(menu.RestaurantDescription.Name);
+                $("#firstMenuItem").html(menu.RestaurantMenuCategories[0].Items[0].Title);         
+           }
+           catch (e) {
+               console.log(e);
+           }
+        }
 
         $(document).ready(function() {
             getMenu();

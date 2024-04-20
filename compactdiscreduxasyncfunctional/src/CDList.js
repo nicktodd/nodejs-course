@@ -8,13 +8,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 function CDList(props) {
 
-  const cdList = useSelector((state) => state);
+  // this is the equivalent of mapStateToProps and connect
+  const completeState = useSelector((state) => state);
+  const {cds, loading, error} = completeState;
   
-  const {cds, loading, error} = cdList;
-  
+  // replaces mapDispatchToProps and connect
   const dispatch = useDispatch();
   
-
+  // replaces the componentDidMount()
   useEffect(() => {
     dispatch(fetchCDs());
     return () => {

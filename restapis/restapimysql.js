@@ -8,9 +8,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 var connection = mysql.createConnection({
-  host: "localhost",
+  host: "sample.cjgnt4u48ahr.eu-west-2.rds.amazonaws.com",
   user: "root",
-  password: "c0nygre",
+  password: "Bbc1bbc1",
   database: "conygre"
 });
 

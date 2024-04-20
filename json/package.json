@@ -1,0 +1,17 @@
+{
+  "name": "starwars",
+  "version": "1.0.0",
+  "description": "This is my starwars project.",
+  "main": "swapi.html",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "starwars"
+  ],
+  "author": "Nick Todd",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1297.0"
+  }
+}

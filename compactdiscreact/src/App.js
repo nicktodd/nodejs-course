@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = { cds: [] };
   }
-  async componentDidMount() {
+  componentDidMount() {
     axios
       .get("http://localhost:8081/music")
       .then(response => {

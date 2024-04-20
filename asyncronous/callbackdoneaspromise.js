@@ -1,6 +1,6 @@
 module.exports = function (inputValue) { // note no callback now
     // note function returns a promise    
-    return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
         console.log("entered the promise");
         // could take a while
         let resultOfLotsOfEffort = null;

@@ -9,13 +9,17 @@ jest.mock("../src/TimeAsText");
 
 it("should call the collaborators in sequence when you get the time", () => {
     // arrange
-    jest.spyOn(Clock, "getTime").mockReturnValue(new Date(2019,11,1,0,0));
+    let midnightDate = new Date(2019,11,1,0,0);
+
+    jest.spyOn(Clock, "getTime").mockReturnValue(midnightDate);
     jest.spyOn(TimeAsText, "getTimeAsText").mockReturnValue("midnight");
     // act
     SpeakingClock.getTime();
     // assert
-    expect(SpeechEngine.sayTime).toBeCalledWith("midnight");
+    // not all of these expectations are required as some are implied by the others
     expect(Clock.getTime).toBeCalledTimes(1);
     expect(TimeAsText.getTimeAsText).toBeCalledTimes(1);
+    expect(TimeAsText.getTimeAsText).toBeCalledWith(midnightDate);
+    expect(SpeechEngine.sayTime).toBeCalledWith("midnight");
     expect(SpeechEngine.sayTime).toBeCalledTimes(1);
 });
