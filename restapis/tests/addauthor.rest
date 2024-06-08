@@ -1,0 +1,14 @@
+POST http://localhost:8081/authors
+Content-Type: application/json
+
+{
+    "id" : "12345",
+    "lname" : "Smith",
+    "fname" : "John",
+    "phone" : "555-555-5555",
+    "address" : "123 Main St",
+    "city" : "Anytown",
+    "state" : "NY",
+    "zip" : "12345",
+    "contract" : 1
+}
