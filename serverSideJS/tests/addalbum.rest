@@ -1,0 +1,9 @@
+POST http://localhost:8081/albums
+Content-Type: application/json
+
+{
+    "title": "The Dark Side of the Moon",
+    "artist": "Pink Floyd",
+    "price": 12.99,
+    "tracks": 8
+}
