@@ -1,0 +1,9 @@
+PUT http://localhost:8081/albums/3
+Content-Type: application/json
+
+{
+    "title": "The Dark Side of the Moon",
+    "artist": "Pink Floyd",
+    "price": 13.99,
+    "tracks": 8
+}
