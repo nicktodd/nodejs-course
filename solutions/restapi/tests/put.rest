@@ -1,0 +1,8 @@
+PUT http://localhost:5000/items/10
+Content-Type: application/json
+
+{
+    "title": "Updated Album",
+    "artist": "Updated Artist",
+    "price": 11.99
+}
