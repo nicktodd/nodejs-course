@@ -6,8 +6,7 @@ In this exercise, you will create a RESTful CRUD application using JavaScript. T
 
 Before starting the exercise, ensure that you have the following:
 
-- Python installed on your machine
-- Flask and mysql-connector-python packages installed
+- NodeJS installed on your machine
 
 ### Step 1: Setting Up the Project
 
@@ -27,7 +26,7 @@ npm install express mysql2
 
 ### Step 2: Application Setup
 
-1. Create a new Python file called `app.js`.
+1. Create a new JavaScript file called `app.js`.
 
 
 2. Import the required modules and set up the Express application:
@@ -53,8 +52,8 @@ app.listen(port, () => {
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'c0nygre',
-    database: 'conygre'
+    password: 'n3u3da!',
+    database: 'n3u3da!'
 });
 
 
@@ -176,9 +175,13 @@ In this exercise, you will create a set of test `.rest` files using the REST Cli
 
 ### Prerequisites
 
-Before starting the exercise, ensure that you have the following:
+Before starting the exercise, ensure that you have the **REST Client** extension installed in VS Code. 
 
-- REST Client extension installed in VS Code.
+1. Click on the Extensions icon in the left bar of VSCode.
+
+2. In the search box, type `REST Client`. You will see the result called **Rest Client** from Huachao Mao.
+
+3. Select the extension, and verify that it is installed. If it is, then you can leave this section and proceed to Step 1. If not, click **Install**. Once the install is complete, you can proceed.
 
 ### Step 1: Create a New Folder
 
