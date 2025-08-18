@@ -3,85 +3,8 @@
 # <a name="_toc524545504"></a>**ECMA6 Exercises**
 # <a name="_toc492455595"></a><a name="_toc524545505"></a>**Course Labs Contents**
 
-[ECMA6 Exercises	1]()
 
-[Course Labs Contents	1]()
-
-[Introduction to your computer	2]()
-
-[Software	2]()
-
-[Chapter 1: Introduction to NodeJS	3]()
-
-[Aims	3]()
-
-[Your First NodeJS Program	3]()
-
-[NodeJS – The Basics	3]()
-
-[The Aims	3]()
-
-[Declaring and initialising variables	3]()
-
-[Looping and Branching	4]()
-
-[The Aims	4]()
-
-[Part 1 Using if / else	4]()
-
-[Part 2 Looping	4]()
-
-[Part 3 Using switch / case	4]()
-
-[Part 4 (Optional)	4]()
-
-[Introduction to Objects and Classes	5]()
-
-[The Aims	5]()
-
-[Defining a class	5]()
-
-[Instantiating the class	5]()
-
-[Working with Arrays	6]()
-
-[Aims	6]()
-
-[Creating an array of Accounts	6]()
-
-[Working with Strings	7]()
-
-[The Aims	7]()
-
-[Part 1 Manipulating Text	7]()
-
-[Part 2 Formatting Text	7]()
-
-[Part 3 Optional Splitting Text	7]()
-
-[Inheritance	8]()
-
-[The Aims	8]()
-
-[Part 1: Defining the Subclasses	8]()
-
-[Part 3: Instantiating our classes	8]()
-
-[Lambda Expressions	10]()
-
-[Aims	10]()
-
-[Creating a Lambda	10]()
-
-[Streams	11]()
-
-[The Aims	11]()
-
-[Part 1 Using the java.io.File class	11]()
-
-[Part 2 Using the Stream Classes	11]()
-# <a name="_toc492455596"></a>**<a name="_toc524545506"></a>Introduction to your computer**
-## <a name="_toc492455597"></a><a name="_toc524545507"></a>***Software***
+***Software***
 The following software should be installed on your operating system.
 
 - NodeJS recent version
@@ -132,11 +55,30 @@ This lab will introduce you to using the various flow control constructs of the 
 1. We will now need to generate a loop which loops around all the years between 1900 and the year 2000 and print out all the leap years to the command console. You can use either a for or while loop to do this.
 1. Once you have done this, set it so that after 5 leap years have been displayed, it breaks out of the loop and prints ‘finished’.
 ## <a name="_toc524545518"></a>***Part 3 Using switch / case***
-1. Now re-write part 1 to use a switch / case construct. It should do exactly the same thing as the if / else if construct. Don’t forget to use break.
+1. Now re-write your code working with the gear to use a switch / case construct. It should switch on the gear and then print the suitable speed range for that gear. If you are unsure - just make it up!
 ## <a name="_toc524545519"></a>***Part 4 (Optional)***
 1. This will possibly require some research by you to find out how to do this. Create yourself an array.
 1. Now modify your loop above, so that it no longer displays the first five years, but stores the first 10 in your array instead.
 1. Now provide another loop to print out the values in the array. Use the length property of the array object to specify how many times to loop
+
+
+## Functions
+1. Create a function that converts a temperature from centigrade to farenheit and returns the new value. You will need to explore what the formula is to complete the conversion.
+
+2. Test your function by calling it with various temperatures to check that it works.
+
+3. Now create a function that takes in a JSON object that looks like this:
+
+```
+{
+   "name": "Nick".
+   "age": 30,
+   "hobby": "Bus spotting"
+}
+```
+The function should then return just the name from the object.
+
+4. Test the function by calling it with some possible values.
 
 # **<a name="_toc524545520"></a>Introduction to Objects and Classes**
 # <a name="_toc524545521"></a>**The Aims**
