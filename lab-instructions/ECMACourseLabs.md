@@ -87,14 +87,13 @@ This lab will introduce you to defining classes with instance methods and variab
 We are going to create a new class called Account, and save it in a file called **Account.js.**
 
 1. Create a new JavaScript file called Account.js and define a class within it.
-1. Provide two properties called \_**balance** and \_**name** which you will have to set up in a constructor.
-1. Now provide get and set blocks for your properties. 
+1. Provide two properties called **balance** and **name** which you will have to set up in a constructor.
 1. Define a new method called **addInterest**, which does not take in any parameters or return any value, but increases the balance by 10%. We will be using this method later.
 
 ## <a name="_toc524545523"></a>***Instantiating the class***
 1. Create another script called **TestAccount.js**.
 1. Within this script, create a new Account object called **myAccount**, and then give it a name and a balance. Set name to be your name, and you can give yourself as much money as you like.
-1. Now print out the name and balance to the screen using the get methods. Place appropriate text before the values using the string concatenator (+).
+1. Now print out the name and balance to the screen. Place appropriate text before the values using the string concatenator (+).
 1. Run your program. It should print out your name and balance variables. 
 1. Call the **addInterest** method and print out the balance again. It should be different when you run it.
 # **<a name="_toc524545524"></a>Working with Arrays**
