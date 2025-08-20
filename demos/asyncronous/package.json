@@ -1,0 +1,17 @@
+{
+  "name": "asyncronous-javascript-demos",
+  "version": "1.0.0",
+  "description": "Demonstration project for understanding asynchronous JavaScript patterns",
+  "main": "index.js",
+  "scripts": {
+    "callback-demo": "node swapi/callback-example.js",
+    "promise-demo": "node swapi/promise-example.js",
+    "async-demo": "node swapi/async-await-example.js"
+  },
+  "keywords": ["javascript", "async", "promises", "callbacks", "swapi"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}
