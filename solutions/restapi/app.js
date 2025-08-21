@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 
 const app = express();
+app.use(express.json());
 const port = 5000;
 
 const db = mysql.createConnection({
@@ -19,7 +20,7 @@ db.connect(err => {
     console.log('Connected to the MySQL database.');
 });
 
-app.use(express.json());
+
 
 app.get('/items', (req, res) => {
     db.query('SELECT * FROM compact_discs', (err, results) => {
