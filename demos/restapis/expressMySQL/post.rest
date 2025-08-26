@@ -1,0 +1,9 @@
+POST http://localhost:4000/authors
+Content-Type: application/json
+
+{
+    "id": "90212",
+    "fName": "Mark",
+    "lName" : "Sz",
+    "contract": 0
+}
