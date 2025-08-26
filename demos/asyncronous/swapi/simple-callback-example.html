@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Callback Example with SWAPI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .example {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .result {
+            background-color: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            min-height: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .planet-info {
+            background-color: #e9f7ff;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <h1>Callback Example with Star Wars API</h1>
+        <p>This demonstrates the traditional callback pattern for handling asynchronous operations.</p>
+        <p><strong>How it works:</strong> We pass a function (callback) that gets called when the operation completes.</p>
+        
+        <button onclick="fetchPlanetWithCallback()">Fetch Star Wars Planet</button>
+        <div id="result" class="result">Click the button to fetch a random Star Wars planet...</div>
+    </div>
+
+    <script>
+        // Helper function to get a random planet ID (1-10)
+        function getRandomPlanetId() {
+            return Math.floor(Math.random() * 10) + 1;
+        }
+
+        // Helper function to display planet information
+        function displayPlanetInfo(planet) {
+            return `
+                <div class="planet-info">
+                    <strong>🪐 ${planet.name}</strong><br>
+                    <strong>Climate:</strong> ${planet.climate}<br>
+                    <strong>Terrain:</strong> ${planet.terrain}<br>
+                    <strong>Population:</strong> ${planet.population}<br>
+                    <strong>Diameter:</strong> ${planet.diameter} km
+                </div>
+            `;
+        }
+
+        // CALLBACK PATTERN EXAMPLE
+        // This function accepts a callback that gets called when the operation completes
+        function fetchPlanetData(planetId, callback) {
+            const url = `https://swapi.py4e.com/api/planets/${planetId}/`;
+            
+            fetch(url)
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error(`HTTP Error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(function(data) {
+                    // Success: call callback with null error and the data
+                    callback(null, data);
+                })
+                .catch(function(error) {
+                    // Error: call callback with error and null data
+                    callback(error, null);
+                });
+        }
+
+        // Function that uses the callback pattern
+        function fetchPlanetWithCallback() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<span class="loading">Loading planet with callback pattern...</span>';
+            
+            const planetId = getRandomPlanetId();
+            
+            // Call fetchPlanetData and provide a callback function
+            fetchPlanetData(planetId, function(error, planetData) {
+                if (error) {
+                    // Handle error case
+                    resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                } else {
+                    // Handle success case
+                    resultDiv.innerHTML = `
+                        <span class="success">✅ Planet fetched successfully with callback!</span>
+                        ${displayPlanetInfo(planetData)}
+                        <p><small>This data was fetched using the traditional callback pattern.</small></p>
+                    `;
+                }
+            });
+        }
+
+        // Show initial message
+        console.log("🚀 Callback Example Loaded!");
+        console.log("This example shows how callbacks work with asynchronous operations.");
+    </script>
+</body>
+</html>

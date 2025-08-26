@@ -1,9 +1,9 @@
 const express = require("express");
-const isis = express();
+const holidays = express();
 const port = 4000;
-isis.use(express.json());
+holidays.use(express.json());
 
-let holidays = [ {
+let holidaysArray = [ {
     id: 1,
     destination: "mauritus",
     startDate: "2025/11/01"
@@ -18,17 +18,17 @@ let holidays = [ {
 
 
 
-isis.listen (port, () => {
+holidays.listen (port, () => {
     console.log(`Server running on ${port}`);
 });
 
-isis.get ("/holidays", (req,res) => {
-    res.status(200).json(holidays);
+holidays.get ("/holidays", (req,res) => {
+    res.status(200).json(holidaysArray);
 
 });
 
-isis.get ("/holidays/:id", (req,res)=>{
-    let matchingHoliday= holidays.find(holiday=>holiday.id==req.params.id);
+holidays.get ("/holidays/:id", (req,res)=>{
+    let matchingHoliday= holidaysArray.find(holiday=>holiday.id==req.params.id);
     if (matchingHoliday){
         res.status(200).json(matchingHoliday);
     }
@@ -40,7 +40,7 @@ isis.get ("/holidays/:id", (req,res)=>{
 
 
 });
-isis.post("/holidays",(req,res)=>{
+holidays.post("/holidays",(req,res)=>{
     let newHoliday = req.body;
     holidays.push(newHoliday);
     res.status(201).json({message:"holiday has been added successfully"});
@@ -48,7 +48,7 @@ isis.post("/holidays",(req,res)=>{
 
 isis.delete("/holidays/:id", (req, res)=> {
     let matchingHoliday = null;
-    let matchingHolidayIndex = holidays.findIndex(holiday => {
+    let matchingHolidayIndex = holidaysArray.findIndex(holiday => {
         if (holiday.id == req.params.id) {
             matchingHoliday = holiday;
             return true;
@@ -56,7 +56,7 @@ isis.delete("/holidays/:id", (req, res)=> {
             return false;
         }
     });
-    holidays.splice(matchingHolidayIndex, 1);
+    holidaysArray.splice(matchingHolidayIndex, 1);
     let msg = `PTO for ${matchingHoliday.destination} denied!!!`
     res.status(200).json({
         message: msg

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Async/Await Example with SWAPI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .example {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .result {
+            background-color: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            min-height: 20px;
+        }
+        button {
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #5a32a3;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .planet-info {
+            background-color: #e9f7ff;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #6f42c1;
+        }
+        .sequential {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <h1>Async/Await Example with Star Wars API</h1>
+        <p>This demonstrates the async/await syntax for handling asynchronous operations.</p>
+        <p><strong>How it works:</strong> Async/await makes asynchronous code look like regular synchronous code!</p>
+        
+        <button onclick="fetchSinglePlanetAsync()">Fetch Single Planet</button>
+        <button onclick="fetchPlanetsSequentially()">Fetch Planets in Sequence</button>
+        <div id="result" class="result">Click a button to fetch Star Wars planet data...</div>
+    </div>
+
+    <script>
+        // Helper function to get a random planet ID (1-10)
+        function getRandomPlanetId() {
+            return Math.floor(Math.random() * 10) + 1;
+        }
+
+        // Helper function to display planet information
+        function displayPlanetInfo(planet) {
+            return `
+                <div class="planet-info">
+                    <strong>🪐 ${planet.name}</strong><br>
+                    <strong>Climate:</strong> ${planet.climate}<br>
+                    <strong>Terrain:</strong> ${planet.terrain}<br>
+                    <strong>Population:</strong> ${planet.population}<br>
+                    <strong>Diameter:</strong> ${planet.diameter} km
+                </div>
+            `;
+        }
+
+        // ASYNC/AWAIT PATTERN EXAMPLE
+        // This function uses async/await to handle promises
+        async function fetchPlanetData(planetId) {
+            const url = `https://swapi.py4e.com/api/planets/${planetId}/`;
+            
+            try {
+                // 'await' pauses here until the promise resolves
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+                
+                // 'await' pauses here until JSON parsing completes
+                const data = await response.json();
+                return data;
+                
+            } catch (error) {
+                // If any await fails, this catch block runs
+                throw error;
+            }
+        }
+
+        // Example 1: Basic async/await usage
+        async function fetchSinglePlanetAsync() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<span class="loading">Loading planet with async/await...</span>';
+            
+            try {
+                const planetId = getRandomPlanetId();
+                
+                // 'await' makes this look like synchronous code!
+                const planetData = await fetchPlanetData(planetId);
+                
+                // This line only runs after the data is fully loaded
+                resultDiv.innerHTML = `
+                    <span class="success">✅ Planet fetched successfully with async/await!</span>
+                    ${displayPlanetInfo(planetData)}
+                    <p><small>This data was fetched using async/await syntax - the cleanest approach!</small></p>
+                `;
+                
+            } catch (error) {
+                // Handle any errors that occurred
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        // Example 2: Sequential async operations
+        async function fetchPlanetsSequentially() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<span class="loading">Loading planets sequentially with async/await...</span>';
+            
+            try {
+                let planetsHtml = '';
+                
+                // Fetch planets one by one (sequentially)
+                for (let i = 1; i <= 3; i++) {
+                    resultDiv.innerHTML = `<span class="loading">Loading planet ${i} of 3...</span>`;
+                    
+                    // Each 'await' waits for the previous one to complete
+                    const planet = await fetchPlanetData(i);
+                    
+                    planetsHtml += `
+                        <div class="sequential">
+                            <strong>Planet ${i}:</strong> ${planet.name} - ${planet.climate}
+                        </div>
+                    `;
+                }
+                
+                resultDiv.innerHTML = `
+                    <span class="success">✅ All 3 planets fetched sequentially!</span>
+                    ${planetsHtml}
+                    <p><small>These planets were fetched one after another using async/await in a loop</small></p>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        // Show initial message
+        console.log("🚀 Async/Await Example Loaded!");
+        console.log("This example shows how async/await provides the cleanest syntax for async operations.");
+    </script>
+</body>
+</html>

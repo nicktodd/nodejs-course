@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Promise Example with SWAPI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .example {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .result {
+            background-color: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            min-height: 20px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .planet-info {
+            background-color: #e9f7ff;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        .multiple-planets {
+            background-color: #fff3cd;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <h1>Promise Example with Star Wars API</h1>
+        <p>This demonstrates the Promise pattern for handling asynchronous operations.</p>
+        <p><strong>How it works:</strong> We use .then() for success and .catch() for errors. Much cleaner than callbacks!</p>
+        
+        <button onclick="fetchSinglePlanet()">Fetch Single Planet</button>
+        <button onclick="fetchMultiplePlanets()">Fetch Multiple Planets</button>
+        <div id="result" class="result">Click a button to fetch Star Wars planet data...</div>
+    </div>
+
+    <script>
+        // Helper function to get a random planet ID (1-10)
+        function getRandomPlanetId() {
+            return Math.floor(Math.random() * 10) + 1;
+        }
+
+        // Helper function to display planet information
+        function displayPlanetInfo(planet) {
+            return `
+                <div class="planet-info">
+                    <strong>🪐 ${planet.name}</strong><br>
+                    <strong>Climate:</strong> ${planet.climate}<br>
+                    <strong>Terrain:</strong> ${planet.terrain}<br>
+                    <strong>Population:</strong> ${planet.population}<br>
+                    <strong>Diameter:</strong> ${planet.diameter} km
+                </div>
+            `;
+        }
+
+        // PROMISE PATTERN EXAMPLE
+        // This function returns a Promise that resolves with planet data
+        function fetchPlanetData(planetId) {
+            const url = `https://swapi.py4e.com/api/planets/${planetId}/`;
+            
+            // fetch() returns a Promise
+            return fetch(url)
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error(`HTTP Error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(function(data) {
+                    return data; // Return the planet data
+                });
+        }
+
+        // Example 1: Basic Promise usage
+        function fetchSinglePlanet() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<span class="loading">Loading planet with promise pattern...</span>';
+            
+            const planetId = getRandomPlanetId();
+            
+            // Use the promise with .then() and .catch()
+            fetchPlanetData(planetId)
+                .then(function(planetData) {
+                    // This runs when the promise resolves (success)
+                    resultDiv.innerHTML = `
+                        <span class="success">✅ Planet fetched successfully with promises!</span>
+                        ${displayPlanetInfo(planetData)}
+                        <p><small>This data was fetched using the Promise pattern with .then() and .catch()</small></p>
+                    `;
+                })
+                .catch(function(error) {
+                    // This runs when the promise rejects (error)
+                    resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                });
+        }
+
+        // Example 2: Promise.all() for multiple requests
+        function fetchMultiplePlanets() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<span class="loading">Loading multiple planets with Promise.all()...</span>';
+            
+            // Create an array of planet IDs
+            const planetIds = [1, 2, 3];
+            
+            // Create an array of promises
+            const planetPromises = planetIds.map(id => fetchPlanetData(id));
+            
+            // Use Promise.all() to wait for all promises to complete
+            Promise.all(planetPromises)
+                .then(function(planets) {
+                    // All promises resolved successfully
+                    let planetsHtml = '';
+                    planets.forEach(function(planet, index) {
+                        planetsHtml += `
+                            <div class="multiple-planets">
+                                <strong>Planet ${index + 1}:</strong> ${planet.name} - ${planet.climate}
+                            </div>
+                        `;
+                    });
+                    
+                    resultDiv.innerHTML = `
+                        <span class="success">✅ All ${planets.length} planets fetched in parallel!</span>
+                        ${planetsHtml}
+                        <p><small>These planets were fetched simultaneously using Promise.all()</small></p>
+                    `;
+                })
+                .catch(function(error) {
+                    // If any promise fails, this catch will run
+                    resultDiv.innerHTML = `<span class="error">❌ Error fetching planets: ${error.message}</span>`;
+                });
+        }
+
+        // Show initial message
+        console.log("🚀 Promise Example Loaded!");
+        console.log("This example shows how promises provide cleaner async code than callbacks.");
+    </script>
+</body>
+</html>
