@@ -1,0 +1,15 @@
+{
+  "name": "typescript-demo",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "cool-math-lib": "file:./cool-math-lib"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
