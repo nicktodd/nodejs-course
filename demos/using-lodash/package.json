@@ -1,0 +1,22 @@
+{
+  "name": "using-lodash",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "dist/using-lodash.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/using-lodash.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.20",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
