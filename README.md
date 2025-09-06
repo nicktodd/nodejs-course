@@ -1,77 +1,65 @@
-# Node.js and Modern JavaScript Course
+# TypeScript and Modern JavaScript Course
 
-This comprehensive course covers JavaScript, Node.js, TypeScript, and modern web development concepts. Each chapter includes demonstrations, hands-on labs, and solutions.
+This comprehensive course covers JavaScript fundamentals, TypeScript development, and modern programming concepts. Each chapter includes demonstrations, hands-on labs, and solutions.
 
 ## Course Structure
 
-### Chapter 1: Basic JavaScript
+### Chapter 1: A Simple JavaScript Application
+- **Objectives**: Node.js runtime, JavaScript concepts, variables, data types, operators, and testing
 - [Demo Guide](demos/basic-javascript/README.md)
 - [Lab Instructions](labs/basic-javascript/README.md)
 - [Solutions](/solutions/basic-javascript)
 
-### Chapter 2: Arrays and Strings
-- [Demo Guide](demos/arrays-strings/README.md)
-- [Lab Instructions](labs/arrays-strings/README.md)
-- [Solutions](/solutions/arrays-strings)
-
-### Chapter 3: Control Flow
+### Chapter 2: Control Flow in JavaScript
+- **Objectives**: Branching, looping, and loop control
 - [Demo Guide](demos/control-flow/README.md)
 - [Lab Instructions](labs/control-flow/README.md)
 - [Solutions](/solutions/control-flow)
 
-### Chapter 4: Functions and Functional Programming
+### Chapter 3: JavaScript Arrays and Strings
+- **Objectives**: Array and string manipulation
+- [Demo Guide](demos/arrays-strings/README.md)
+- [Lab Instructions](labs/arrays-strings/README.md)
+- [Solutions](/solutions/arrays-strings)
+
+### Chapter 4: JavaScript Functions
+- **Objectives**: Reusable code blocks, function implementation, scope, and functions as data
 - [Demo Guide](demos/functions/README.md)
 - [Lab Instructions](labs/functions/README.md)
 - [Solutions](/solutions/functions)
 
-### Chapter 5: Object-Oriented JavaScript
-- ECMA5 Inheritance Examples: [Demo Code](demos/ecma_5_inheritance)
-- ECMA6 Classes: [Demo Code](demos/ecma6_classes)
-- Modern JavaScript Features: [Demo Code](demos/ecma6_general)
-
-### Chapter 6: Asynchronous JavaScript
-- [Async Demos](demos/asyncronous)
-- Events and Timing: [Demo Code](demos/events)
-- Streams: [Demo Code](demos/streams)
-
-### Chapter 7: TypeScript Essentials
+### Chapter 5: TypeScript Essentials
+- **Objectives**: TypeScript basics, types, transpilation, arrays, tuples, enums, and union types
 - [Demo Guide](demos/typescript-essentials/README.md)
 - [Lab Instructions](labs/typescript-essentials/README.md)
 - [Solutions](/solutions/typescript-essentials)
 
-### Chapter 8: TypeScript Classes and Functions
-- Classes: [Demo Code](demos/typescript-classes)
-- [Functions Demo Guide](demos/typescript-functions/README.md)
-- [Functions Lab Instructions](labs/typescript-functions/README.md)
-- Custom Type Definitions: [Demo Code](demos/typescript-custom-typing)
+### Chapter 6: Defining and Calling Functions in TypeScript
+- **Objectives**: Typed parameters, destructuring, optional parameters, and lambda expressions
+- [Demo Guide](demos/typescript-functions/README.md)
+- [Lab Instructions](labs/typescript-functions/README.md)
+- [Solutions](/solutions/typescript-functions)
 
-### Chapter 9: Modern Web Development
-- [Basic React Demo](demos/basic-react/README.md)
-- React with Redux:
-  - [Basic Redux](demos/compactdiscredux/README.md)
-  - [Async Redux](demos/compactdiscreduxasync/README.md)
-  - [Functional Redux](demos/compactdiscreduxasyncfunctional/README.md)
+### Chapter 7: Defining and Using Classes in TypeScript
+- **Objectives**: Class definition, constructors, properties, and access modifiers
+- [Demo Guide](demos/typescript-classes/README.md)
+- [Lab Instructions](labs/typescript-classes/README.md)
+- [Solutions](/solutions/typescript-classes)
 
-### Chapter 10: Testing and Quality Assurance
-- Jest Testing: [Demo Code](demos/basicjest)
-- Cucumber BDD: [Demo Code](demos/cucumber)
-- Mocking: [Demo Code](demos/mocking)
+### Chapter 8: Asynchronous TypeScript
+- **Objectives**: Promises, async/await, and parallel execution
+- [Demo Guide](demos/typescript-async/README.md)
+- [Lab Instructions](labs/typescript-async/README.md)
+- [Solutions](/solutions/typescript-async)
 
-### Chapter 11: Working with Data
-- REST APIs: [Demo Code](demos/restapis)
-- JSON Processing: [Demo Code](demos/json)
-- MySQL Database: [Lab Instructions](labs/mysql)
-
-### Chapter 12: Modern JavaScript Tools and Libraries
+### Chapter 9: Tooling Overview
+- **Objectives**: Linters, build processes, packaging, and automated testing
+- [Demo Guide](demos/typescript-tooling/README.md)
+- [Lab Instructions](labs/typescript-tooling/README.md)
+- [Solutions](/solutions/typescript-tooling)
 - Lodash Utility Library: [Demo Code](demos/using-lodash)
 - Zod Schema Validation: [Demo Code](demos/using-zod)
 - Module Systems: [Demo Code](demos/importmodules)
-
-## Additional Resources
-- [Alexa Skill Development Guide](lab-instructions/alexa-skill.md)
-- [Database Labs](lab-instructions/databases_lab.md)
-- [ECMA Course Labs](lab-instructions/ECMACourseLabs.md)
-- [REST Database Lab](lab-instructions/rest_database_lab.md)
 
 ## Getting Started
 
