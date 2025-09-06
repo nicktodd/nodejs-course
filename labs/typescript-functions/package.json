@@ -1,0 +1,13 @@
+{
+  "name": "typescript-functions-lab",
+  "version": "1.0.0",
+  "description": "TypeScript functions lab exercises",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}

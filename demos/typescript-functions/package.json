@@ -1,0 +1,12 @@
+{
+  "name": "typescript-functions",
+  "version": "1.0.0",
+  "description": "TypeScript functions demonstrations",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
