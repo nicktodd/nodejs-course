@@ -13,27 +13,32 @@ function fetchData(callback) {
 fetchData(data => console.log('Data received:', data));
 
 // Function currying
-console.log('\nCurrying:');
-
+// Transforming a function with multiple arguments into a sequence of functions each taking a single argument
+// No, curry is not a JavaScript keyword. It's a user-defined function name commonly used to describe a function that implements currying.
 function curry(fn) {
     return function curried(...args) {
         if (args.length >= fn.length) {
             return fn.apply(this, args);
+        } else {
+            return function(...nextArgs) {
+                return curried.apply(this, args.concat(nextArgs));
+            };
         }
-        return function(...moreArgs) {
-            return curried.apply(this, args.concat(moreArgs));
-        };
     };
 }
+console.log('\nCurrying:');
+// Currying is a functional programming technique where a function with multiple arguments is transformed into a sequence of functions, each taking a single argument. 
+// Instead of calling fn(a, b, c), you call fn(a)(b)(c).
+const multiply = (a, b) => a * b;
+const curriedMultiply = curry(multiply);
 
-const curriedAdd = curry((a, b, c) => a + b + c);
-console.log(curriedAdd(1)(2)(3));
-console.log(curriedAdd(1, 2)(3));
-console.log(curriedAdd(1)(2, 3));
+const double = curriedMultiply(2); // Fixes 'a' as 2
+console.log(double(5)); // Outputs 10
 
 // Memoization pattern
 console.log('\nMemoization:');
-
+// Memoization is an optimization technique used to speed up function calls by caching the results of expensive computations.
+// When the function is called with the same arguments again, the cached result is returned instead of recomputing it.
 function memoize(fn) {
     const cache = new Map();
     return function(...args) {

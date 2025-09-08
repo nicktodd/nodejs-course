@@ -64,12 +64,15 @@ console.log('includes banana:', fruits2.includes('banana'));
 console.log('\nArray Transformation:');
 const numbers2 = [1, 2, 3, 4, 5];
 
+// Mapping to a new array
+// Doubling the values
 const doubled = numbers2.map(num => num * 2);
 console.log('Mapped (doubled):', doubled);
 
 const evenNumbers = numbers2.filter(num => num % 2 === 0);
 console.log('Filtered (even):', evenNumbers);
 
+// Reducing to a single value
 const sum = numbers2.reduce((acc, curr) => acc + curr, 0);
 console.log('Reduced (sum):', sum);
 
