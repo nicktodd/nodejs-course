@@ -1,7 +1,7 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'apollo-server-express';
 
 // GraphQL type definitions
-const typeDefs = gql`
+export const typeDefs = gql`
   # TV Show type definition
   type TVShow {
     id: ID!
@@ -89,5 +89,3 @@ const typeDefs = gql`
     showDeleted: TVShow!
   }
 `;
-
-module.exports = typeDefs;

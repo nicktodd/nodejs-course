@@ -1,17 +1,27 @@
-const { tvScheduleData } = require('../data/tvScheduleData');
+import { tvScheduleData } from '../data/tvScheduleData';
+import { 
+  TVShow, 
+  CreateTVShowInput, 
+  UpdateTVShowInput, 
+  GraphQLContext, 
+  QueryArgs, 
+  MutationArgs,
+  SUBSCRIPTION_EVENTS 
+} from '../types';
 
 // Simple event emitter for subscriptions (placeholder)
 class SimplePubSub {
+  private subscribers: Map<string, any>;
+
   constructor() {
     this.subscribers = new Map();
   }
   
-  publish(event, payload) {
+  publish(event: string, payload: any): void {
     // Simple placeholder - in production use proper PubSub
     console.log(`Event published: ${event}`, payload);
   }
-  
-  asyncIterator(events) {
+    asyncIterator(events: string[]): any {
     // Placeholder for subscription iterator
     return {
       [Symbol.asyncIterator]: async function* () {
@@ -25,94 +35,85 @@ class SimplePubSub {
 // Create a simple PubSub instance for subscriptions
 const pubsub = new SimplePubSub();
 
-// Subscription event names
-const SHOW_CREATED = 'SHOW_CREATED';
-const SHOW_UPDATED = 'SHOW_UPDATED';
-const SHOW_DELETED = 'SHOW_DELETED';
-
 // GraphQL resolvers
-const resolvers = {
+export const resolvers = {
   Query: {
     // Get all TV shows
-    shows: () => {
+    shows: (): TVShow[] => {
       try {
         return tvScheduleData.getAllShows();
       } catch (error) {
-        throw new Error(`Failed to fetch shows: ${error.message}`);
+        throw new Error(`Failed to fetch shows: ${(error as Error).message}`);
       }
     },
 
     // Get a specific TV show by ID
-    show: (parent, { id }) => {
+    show: (parent: any, { id }: QueryArgs): TVShow | null => {
       try {
-        const show = tvScheduleData.getShowById(id);
+        const show = tvScheduleData.getShowById(id!);
         if (!show) {
           throw new Error(`TV show with ID ${id} not found`);
         }
         return show;
       } catch (error) {
-        throw new Error(`Failed to fetch show: ${error.message}`);
+        throw new Error(`Failed to fetch show: ${(error as Error).message}`);
       }
     },
 
     // Get shows by channel
-    showsByChannel: (parent, { channel }) => {
+    showsByChannel: (parent: any, { channel }: QueryArgs): TVShow[] => {
       try {
-        return tvScheduleData.getShowsByChannel(channel);
+        return tvScheduleData.getShowsByChannel(channel!);
       } catch (error) {
-        throw new Error(`Failed to fetch shows by channel: ${error.message}`);
+        throw new Error(`Failed to fetch shows by channel: ${(error as Error).message}`);
       }
     },
 
     // Get shows by genre
-    showsByGenre: (parent, { genre }) => {
+    showsByGenre: (parent: any, { genre }: QueryArgs): TVShow[] => {
       try {
-        return tvScheduleData.getShowsByGenre(genre);
+        return tvScheduleData.getShowsByGenre(genre!);
       } catch (error) {
-        throw new Error(`Failed to fetch shows by genre: ${error.message}`);
+        throw new Error(`Failed to fetch shows by genre: ${(error as Error).message}`);
       }
     },
 
     // Get shows within a time range
-    showsByTimeRange: (parent, { startTime, endTime }) => {
+    showsByTimeRange: (parent: any, { startTime, endTime }: QueryArgs): TVShow[] => {
       try {
         // Validate the time format
-        if (!Date.parse(startTime) || !Date.parse(endTime)) {
+        if (!Date.parse(startTime!) || !Date.parse(endTime!)) {
           throw new Error('Invalid date format. Please use ISO 8601 format.');
         }
         
-        return tvScheduleData.getShowsByTimeRange(startTime, endTime);
+        return tvScheduleData.getShowsByTimeRange(startTime!, endTime!);
       } catch (error) {
-        throw new Error(`Failed to fetch shows by time range: ${error.message}`);
+        throw new Error(`Failed to fetch shows by time range: ${(error as Error).message}`);
       }
     },
 
     // Get all available channels
-    channels: () => {
+    channels: (): string[] => {
       try {
-        const shows = tvScheduleData.getAllShows();
-        const uniqueChannels = [...new Set(shows.map(show => show.channel))];
-        return uniqueChannels.sort();
+        return tvScheduleData.getChannels();
       } catch (error) {
-        throw new Error(`Failed to fetch channels: ${error.message}`);
+        throw new Error(`Failed to fetch channels: ${(error as Error).message}`);
       }
     },
 
     // Get all available genres
-    genres: () => {
+    genres: (): string[] => {
       try {
-        const shows = tvScheduleData.getAllShows();
-        const uniqueGenres = [...new Set(shows.map(show => show.genre))];
-        return uniqueGenres.sort();
+        return tvScheduleData.getGenres();
       } catch (error) {
-        throw new Error(`Failed to fetch genres: ${error.message}`);
+        throw new Error(`Failed to fetch genres: ${(error as Error).message}`);
       }
     }
   },
 
   Mutation: {
     // Create a new TV show
-    createShow: (parent, { input }) => {
+    createShow: (parent: any, { input }: { input: CreateTVShowInput }): TVShow => {
       try {
         // Validate required fields
         if (!input.title || !input.channel || !input.startTime || !input.endTime || !input.description) {
@@ -132,16 +133,16 @@ const resolvers = {
         const newShow = tvScheduleData.createShow(input);
         
         // Publish subscription event
-        pubsub.publish(SHOW_CREATED, { showCreated: newShow });
+        pubsub.publish(SUBSCRIPTION_EVENTS.SHOW_CREATED, { showCreated: newShow });
         
         return newShow;
       } catch (error) {
-        throw new Error(`Failed to create show: ${error.message}`);
+        throw new Error(`Failed to create show: ${(error as Error).message}`);
       }
     },
 
     // Update an existing TV show
-    updateShow: (parent, { id, input }) => {
+    updateShow: (parent: any, { id, input }: { id: string; input: UpdateTVShowInput }): TVShow => {
       try {
         // Validate that the show exists
         const existingShow = tvScheduleData.getShowById(id);
@@ -167,45 +168,43 @@ const resolvers = {
         const updatedShow = tvScheduleData.updateShow(id, input);
         
         // Publish subscription event
-        pubsub.publish(SHOW_UPDATED, { showUpdated: updatedShow });
+        pubsub.publish(SUBSCRIPTION_EVENTS.SHOW_UPDATED, { showUpdated: updatedShow });
         
         return updatedShow;
       } catch (error) {
-        throw new Error(`Failed to update show: ${error.message}`);
+        throw new Error(`Failed to update show: ${(error as Error).message}`);
       }
     },
 
     // Delete a TV show
-    deleteShow: (parent, { id }) => {
+    deleteShow: (parent: any, { id }: { id: string }): TVShow => {
       try {
         const deletedShow = tvScheduleData.deleteShow(id);
         
         // Publish subscription event
-        pubsub.publish(SHOW_DELETED, { showDeleted: deletedShow });
+        pubsub.publish(SUBSCRIPTION_EVENTS.SHOW_DELETED, { showDeleted: deletedShow });
         
         return deletedShow;
       } catch (error) {
-        throw new Error(`Failed to delete show: ${error.message}`);
+        throw new Error(`Failed to delete show: ${(error as Error).message}`);
       }
     },
 
     // Clear all shows (for testing purposes)
-    clearAllShows: () => {
+    clearAllShows: (): boolean => {
       try {
-        tvScheduleData.clearAllShows();
-        return true;
+        return tvScheduleData.clearAllShows();
       } catch (error) {
-        throw new Error(`Failed to clear shows: ${error.message}`);
+        throw new Error(`Failed to clear shows: ${(error as Error).message}`);
       }
     },
 
     // Reset to initial data (for testing purposes)
-    resetToInitialData: () => {
+    resetToInitialData: (): boolean => {
       try {
-        tvScheduleData.resetToInitialData();
-        return true;
+        return tvScheduleData.resetToInitialData();
       } catch (error) {
-        throw new Error(`Failed to reset data: ${error.message}`);
+        throw new Error(`Failed to reset data: ${(error as Error).message}`);
       }
     }
   },
@@ -213,19 +212,15 @@ const resolvers = {
   Subscription: {
     // Subscribe to show updates
     showUpdated: {
-      subscribe: () => pubsub.asyncIterator([SHOW_UPDATED])
+      subscribe: () => pubsub.asyncIterator([SUBSCRIPTION_EVENTS.SHOW_UPDATED])
     },
 
     // Subscribe to new shows
     showCreated: {
-      subscribe: () => pubsub.asyncIterator([SHOW_CREATED])
-    },
-
-    // Subscribe to deleted shows
+      subscribe: () => pubsub.asyncIterator([SUBSCRIPTION_EVENTS.SHOW_CREATED])
+    },    // Subscribe to deleted shows
     showDeleted: {
-      subscribe: () => pubsub.asyncIterator([SHOW_DELETED])
+      subscribe: () => pubsub.asyncIterator([SUBSCRIPTION_EVENTS.SHOW_DELETED])
     }
   }
 };
-
-module.exports = resolvers;

@@ -1,14 +1,14 @@
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const { createServer } = require('http');
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import { createServer } from 'http';
 
-const typeDefs = require('./schema/typeDefs');
-const resolvers = require('./schema/resolvers');
+import { typeDefs } from './schema/typeDefs';
+import { resolvers } from './schema/resolvers';
 
-async function startServer() {
+async function startServer(): Promise<any> {
   try {
     // Create Express app
-    const app = express();
+    const app: express.Application = express();
 
     // Create Apollo Server
     const server = new ApolloServer({
@@ -23,8 +23,7 @@ async function startServer() {
       },
       // Enable GraphQL Playground in production for demo purposes
       introspection: true,
-      playground: true,
-      formatError: (error) => {
+      formatError: (error: any) => {
         console.error('GraphQL Error:', error);
         return {
           message: error.message,
@@ -39,7 +38,7 @@ async function startServer() {
     await server.start();
 
     // Apply middleware
-    server.applyMiddleware({ app, path: '/graphql' });
+    server.applyMiddleware({ app: app as any, path: '/graphql' });
 
     // Create HTTP server
     const httpServer = createServer(app);

@@ -87,8 +87,8 @@ test.describe('TV Schedule GraphQL API - Server Health and Schema', () => {
         `
       }
     });
-    
-    expect(response.ok()).toBeTruthy();
+      // Apollo Server returns 400 for validation errors, which is correct
+    expect(response.status()).toBe(400);
     const data = await response.json();
     expect(data.errors).toBeDefined();
     expect(data.errors.length).toBeGreaterThan(0);
