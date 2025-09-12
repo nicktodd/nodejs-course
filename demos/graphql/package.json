@@ -1,0 +1,32 @@
+{
+  "name": "tv-schedule-graphql-api",
+  "version": "1.0.0",
+  "description": "A GraphQL CRUD API for TV schedule management",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug"
+  },
+  "keywords": [
+    "graphql",
+    "tv-schedule",
+    "apollo-server",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-express": "^3.12.1",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "graphql-tools": "^9.0.20",
+    "subscriptions-transport-ws": "^0.11.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "nodemon": "^3.0.2"
+  }
+}
