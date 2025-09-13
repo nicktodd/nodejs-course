@@ -1,0 +1,14 @@
+{
+  "name": "basic-playwright-solution",
+  "version": "1.0.0",
+  "description": "Solution for Playwright API Testing Lab (TypeScript)",
+  "main": "swapi.spec.ts",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.0.0"
+  }
+}

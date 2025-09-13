@@ -67,9 +67,9 @@ async function startServer(): Promise<any> {
 
     // Start HTTP server
     httpServer.listen(PORT, () => {
-      console.log(`🚀 TV Schedule GraphQL API Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-      console.log(`🚀 GraphQL Playground available at http://localhost:${PORT}${server.graphqlPath}`);
-      console.log(`❤️  Health check available at http://localhost:${PORT}/health`);
+      console.log(`TV Schedule GraphQL API Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+      console.log(`GraphQL Playground available at http://localhost:${PORT}${server.graphqlPath}`);
+      console.log(`Health check available at http://localhost:${PORT}/health`);
     });
 
     // Graceful shutdown handling
