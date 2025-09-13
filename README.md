@@ -52,7 +52,19 @@ This comprehensive course covers JavaScript fundamentals, TypeScript development
 - [Lab Instructions](labs/typescript-async/README.md)
 - [Solutions](/solutions/typescript-async)
 
-### Chapter 9: Tooling Overview
+### Chapter 9: API Testing with Playwright
+- **Objectives**: API testing, Playwright Test, TypeScript integration, and schema validation
+- **Basic Playwright API Testing**:
+  - [Lab Instructions](labs/basic-playwright/README.md)
+  - [Solutions](/solutions/basic-playwright)
+- **Core Playwright API Testing**:
+  - [Lab Instructions](labs/playwright-core/README.md)
+  - [Solutions](/solutions/playwright-core)
+- **Advanced API Testing Patterns**:
+  - [Lab Instructions](labs/playwright-patterns/README.md)
+  - [Solutions](/solutions/playwright-patterns)
+
+### Chapter 10: Tooling Overview
 - **Objectives**: Linters, build processes, packaging, and automated testing
 - [Demo Guide](demos/typescript-tooling/README.md)
 - [Lab Instructions](labs/typescript-tooling/README.md)
