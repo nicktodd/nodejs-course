@@ -71,11 +71,44 @@ In this exercise, you will set up Playwright in your Node.js project and use it 
    npm test
    ```
 
+## Step 5: Run Tests Using VS Code Extension
+
+You can run Playwright tests directly from Visual Studio Code using the official Playwright Test extension.
+
+1. Open VS Code and go to the Extensions view (`Ctrl+Shift+X`).
+2. Search for `Playwright Test` and install the extension by Microsoft.
+3. Open your test file (e.g., `swapi.spec.ts`).
+4. You should see Run/Debug code lenses above each test. Click `Run` to execute the test and view results in the Test Explorer panel.
+
+This extension provides a convenient UI for running, debugging, and viewing Playwright test results.
+
+---
+
+## Optional: Run Tests Using Docker
+
+You can run your Playwright tests in a containerized environment using Docker. This is useful for consistent CI/CD pipelines or testing on different platforms.
+
+1. Create a `Dockerfile` in your lab folder with the following content:
+   ```Dockerfile
+   FROM mcr.microsoft.com/playwright:v1.43.0-jammy
+   WORKDIR /app
+   COPY . .
+   RUN npm install --legacy-peer-deps
+   RUN npx playwright install --with-deps
+   CMD ["npx", "playwright", "test"]
+   ```
+2. Build the Docker image:
+   ```powershell
+   docker build -t playwright-lab .
+   ```
+3. Run the tests in a container:
+   ```powershell
+   docker run --rm playwright-lab
+   ```
+
+This will execute your Playwright tests in a clean, isolated environment.
+
 ## Bonus Challenge
 - Add tests for other SWAPI endpoints (e.g., planets, starships)
 - Validate error handling for invalid endpoints
 - Use Playwright's test hooks for setup/teardown
-
-## Submission
-- Place your solution in the `solutions/basic-playwright` folder
-- Include your test file and a brief summary of your findings
