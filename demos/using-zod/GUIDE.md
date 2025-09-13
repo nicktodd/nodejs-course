@@ -5,10 +5,10 @@ Welcome to the Zod tutorial! This guide will walk you through everything you nee
 ## What is Zod?
 
 Zod is a TypeScript-first schema validation library that helps you:
-- ✅ Validate data at runtime (not just compile time)
-- 🔒 Ensure your application receives the correct data types
-- 🚀 Automatically generate TypeScript types from your validation schemas
-- 🛡️ Provide detailed error messages when validation fails
+- Validate data at runtime (not just compile time)
+- Ensure your application receives the correct data types
+- Automatically generate TypeScript types from your validation schemas
+- Provide detailed error messages when validation fails
 
 ## Why Use Zod?
 
@@ -315,4 +315,4 @@ function validateUser(data: unknown) {
 - [Zod GitHub Repository](https://github.com/colinhacks/zod)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 
-Happy validating! 🎉
+
