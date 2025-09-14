@@ -1,0 +1,32 @@
+{
+  "name": "playwright-graphql-lab",
+  "version": "1.0.0",
+  "description": "GraphQL API Testing with Playwright",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "test": "node --no-deprecation ./node_modules/.bin/playwright test",
+    "test:headed": "node --no-deprecation ./node_modules/.bin/playwright test --headed"
+  },
+  "keywords": [
+    "playwright",
+    "graphql",
+    "testing",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/client": "^3.7.17",
+    "@apollo/server": "^4.9.3",
+    "cross-fetch": "^4.0.0",
+    "graphql": "^16.8.1",
+    "react": "^18.3.1",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.0",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}
