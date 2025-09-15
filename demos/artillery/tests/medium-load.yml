@@ -1,0 +1,46 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: "Medium load - ramping up"
+    - duration: 30
+      arrivalRate: 20
+      name: "Medium load - sustained"
+  defaults:
+    headers:
+      User-Agent: 'Artillery Load Test - Medium'
+
+scenarios:
+  - name: "Mixed endpoint testing"
+    weight: 25
+    flow:
+      - get:
+          url: "/api/healthy"
+      - think: 1
+      - get:
+          url: "/api/memory-leak"
+      - think: 1
+      - get:
+          url: "/api/random-fail"
+
+  - name: "Blocking operations test"
+    weight: 25
+    flow:
+      - get:
+          url: "/api/blocking"
+      - think: 2
+
+  - name: "Degrading performance test"
+    weight: 25
+    flow:
+      - get:
+          url: "/api/degrading"
+      - think: 1
+
+  - name: "Database connection simulation"
+    weight: 25
+    flow:
+      - get:
+          url: "/api/db-connection"
+      - think: 1

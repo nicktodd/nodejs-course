@@ -1,0 +1,62 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+      name: "Heavy load - initial ramp"
+    - duration: 120
+      arrivalRate: 50
+      name: "Heavy load - stress testing"
+    - duration: 60
+      arrivalRate: 100
+      name: "Heavy load - maximum stress"
+  defaults:
+    headers:
+      User-Agent: 'Artillery Load Test - Heavy'
+  http:
+    timeout: 10
+
+scenarios:
+  - name: "Memory exhaustion attack"
+    weight: 30
+    flow:
+      - loop:
+        - get:
+            url: "/api/memory-leak"
+        - think: 0.5
+        count: 5
+
+  - name: "Event loop blocking storm"
+    weight: 25
+    flow:
+      - get:
+          url: "/api/blocking"
+      - get:
+          url: "/api/blocking"
+      - think: 1
+
+  - name: "Database connection pool exhaustion"
+    weight: 20
+    flow:
+      - get:
+          url: "/api/db-connection"
+      - get:
+          url: "/api/db-connection"
+      - get:
+          url: "/api/db-connection"
+
+  - name: "Degrading performance under load"
+    weight: 15
+    flow:
+      - get:
+          url: "/api/degrading"
+      - think: 0.5
+
+  - name: "Random failure spike"
+    weight: 10
+    flow:
+      - loop:
+        - get:
+            url: "/api/random-fail"
+        - think: 0.1
+        count: 10

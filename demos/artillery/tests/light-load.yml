@@ -1,0 +1,33 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: "Light load - warming up"
+  defaults:
+    headers:
+      User-Agent: 'Artillery Load Test - Light'
+
+scenarios:
+  - name: "Basic functionality test"
+    weight: 40
+    flow:
+      - get:
+          url: "/api/healthy"
+      - think: 1
+      - get:
+          url: "/health"
+
+  - name: "Test memory leak endpoint"
+    weight: 30
+    flow:
+      - get:
+          url: "/api/memory-leak"
+      - think: 2
+
+  - name: "Test random failures"
+    weight: 30
+    flow:
+      - get:
+          url: "/api/random-fail"
+      - think: 1

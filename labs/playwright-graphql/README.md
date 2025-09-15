@@ -137,6 +137,4 @@ Run tests in headed mode (with browser UI visible):
 npm run test:headed
 ```
 
-## Submission
 
-Complete all the test cases in `queries.spec.ts` and `mutations.spec.ts`. Your tests should cover all the GraphQL operations and handle both success and error cases.

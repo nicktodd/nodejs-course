@@ -1,0 +1,18 @@
+{
+  "name": "playwright-advanced-features-demo",
+  "version": "1.0.0",
+  "description": "Demo API and Playwright tests for advanced API error handling, throttling, and versioning.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "npx playwright test"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "playwright": "^1.43.0",
+    "openapi-validator": "^0.4.0"
+  }
+}
