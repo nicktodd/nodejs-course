@@ -1,0 +1,15 @@
+image: mcr.microsoft.com/playwright:v1.49.0-focal
+
+pipelines:
+  default:
+    - step:
+        name: Run Playwright API Tests
+        caches:
+          - node
+        script:
+          - npm ci
+          - npx playwright install --with-deps
+          - npx playwright test --reporter=list,junit,html,json
+        artifacts:
+          - test-results/**
+          - playwright-report/**

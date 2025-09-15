@@ -1,0 +1,52 @@
+pipeline {
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.49.0-focal'
+            args '-u root' // allow installing deps
+        }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
+        stage('Install browsers') {
+            steps {
+                sh 'npx playwright install --with-deps'
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                sh 'npx playwright test --reporter=list,junit,html,json'
+            }
+            post {
+                always {
+                    junit 'test-results/results.xml'
+                }
+            }
+        }
+
+        stage('Archive reports') {
+            steps {
+                archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+                archiveArtifacts artifacts: 'test-results/**', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished. Reports archived.'
+        }
+    }
+}

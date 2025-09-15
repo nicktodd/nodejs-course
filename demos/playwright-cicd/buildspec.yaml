@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo Installing dependencies...
+      - npm ci
+  pre_build:
+    commands:
+      - echo Running lint...
+      - npm run lint || true
+  build:
+    commands:
+      - echo Running tests...
+      # Run tests and generate JUnit report
+      - mkdir -p test-results
+      - npm test -- --ci --reporters=default --reporters=jest-junit
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+reports:
+  jest_reports:
+    files:
+      - junit.xml
+    base-directory: test-results
+    discard-paths: yes

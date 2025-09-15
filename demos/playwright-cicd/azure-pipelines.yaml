@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Use Node.js 20'
+
+  - checkout: self
+
+  - script: npm ci
+    displayName: 'Install dependencies'
+
+  - script: npx playwright install --with-deps
+    displayName: 'Install Playwright browsers'
+
+  - script: npx playwright test --reporter=list,junit,html,json
+    displayName: 'Run Playwright tests'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '**/results.xml'
+      testRunTitle: 'Playwright API Tests'
+    condition: succeededOrFailed()
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'playwright-report'
+      ArtifactName: 'playwright-html-report'
+      publishLocation: 'Container'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'test-results'
+      ArtifactName: 'playwright-test-results'
+      publishLocation: 'Container'
