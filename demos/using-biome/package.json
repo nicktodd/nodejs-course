@@ -1,0 +1,12 @@
+{
+  "name": "using-biome-demo",
+  "version": "1.0.0",
+  "description": "Demo for using Biome as a linter and formatter.",
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.0"
+  }
+}
