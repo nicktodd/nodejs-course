@@ -132,6 +132,6 @@ export function demonstrateSafeParsing() {
 
 // Run examples if this file is executed directly
 if (require.main === module) {
-  runBasicExamples();
+  runBasicValidationExamples();
   demonstrateSafeParsing();
 }
