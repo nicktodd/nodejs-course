@@ -71,12 +71,12 @@ console.log('Loading...');
 fetchPlanetWithPromise(1)
     .then(function(planetData) {
         // This function runs when the promise is resolved (successful)
-        console.log('✅ Planet data fetched successfully!');
+        console.log('Planet data fetched successfully!');
         displayPlanetInfo(planetData);
     })
     .catch(function(error) {
         // This function runs when the promise is rejected (error occurred)
-        console.error('❌ Error fetching planet data:', error.message);
+        console.error('Error fetching planet data:', error.message);
     });
 
 // Example 2: Promise chaining - fetching multiple planets sequentially
@@ -100,7 +100,7 @@ fetchPlanetWithPromise(1)
     })
     .catch(function(error) {
         // This catch will handle errors from any promise in the chain
-        console.error('❌ Error in promise chain:', error.message);
+        console.error('Error in promise chain:', error.message);
     });
 
 // Example 3: Promise.all() - fetching multiple planets in parallel
@@ -118,14 +118,14 @@ const planetPromises = [
 Promise.all(planetPromises)
     .then(function(planets) {
         // All promises resolved successfully
-        console.log('✅ All planets fetched in parallel!');
+        console.log('All planets fetched in parallel!');
         planets.forEach(function(planet, index) {
             console.log(`Planet ${index + 1}: ${planet.name}`);
         });
     })
     .catch(function(error) {
         // If any promise rejects, this catch will be called
-        console.error('❌ Error fetching planets in parallel:', error.message);
+        console.error('Error fetching planets in parallel:', error.message);
     });
 
 // Example 4: Promise.race() - get the first response
@@ -141,10 +141,10 @@ const racingPromises = [
 // Promise.race() resolves with the first promise that settles (resolves or rejects)
 Promise.race(racingPromises)
     .then(function(firstPlanet) {
-        console.log(`🏆 First planet to load: ${firstPlanet.name}`);
+        console.log(` First planet to load: ${firstPlanet.name}`);
     })
     .catch(function(error) {
-        console.error('❌ First promise to settle was a rejection:', error.message);
+        console.error('First promise to settle was a rejection:', error.message);
     });
 
 /**

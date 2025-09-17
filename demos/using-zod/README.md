@@ -1,17 +1,19 @@
-# Zod Example Application
+# Zod Demonstration Code
 
-This is a comprehensive example application that demonstrates how to use Zod for runtime type validation in TypeScript. It's designed for beginners learning TypeScript and Zod, but includes advanced concepts for more experienced developers.
+This directory contains demonstration code showing how to use Zod for runtime type validation in TypeScript. These are working examples to illustrate Zod concepts during lectures and presentations.
 
-## 🎯 What is Zod?
+**Note:** For hands-on exercises and lab work, see the `labs/using-zod/` directory. Solutions are available in `solutions/using-zod/`.
+
+## What is Zod?
 
 Zod is a TypeScript-first schema validation library that allows you to:
-- ✅ Define schemas for your data structures
-- 🔍 Validate data at runtime (not just compile time)  
-- 🚀 Automatically infer TypeScript types from schemas
-- 📝 Provide detailed, customizable error messages for invalid data
-- 🛡️ Ensure type safety throughout your application
+- Define schemas for your data structures
+- Validate data at runtime (not just compile time)  
+- Automatically infer TypeScript types from schemas
+- Provide detailed, customizable error messages for invalid data
+- Ensure type safety throughout your application
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v16 or higher)
@@ -36,7 +38,7 @@ Zod is a TypeScript-first schema validation library that allows you to:
    npm start
    ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -51,7 +53,7 @@ src/
     └── sample-data.ts         # Test data for examples
 ```
 
-## 📚 What You'll Learn
+## What You'll Learn
 
 ### 1. **Basic Schema Validation** (`src/examples/basic-validation.ts`)
 - String, number, and boolean validation
@@ -80,7 +82,7 @@ src/
 - Schema transformations
 - Conditional validation
 
-## 🎮 Running the Examples
+## Running the Examples
 
 ### Main Application
 ```bash
@@ -109,15 +111,14 @@ npm run dev
 # Runs TypeScript directly without compilation
 ```
 
-## 📖 Learning Path
+## Learning Path
 
-1. **Start Here**: Read `GUIDE.md` for a complete beginner's guide
-2. **Quick Reference**: Use `QUICK_REFERENCE.md` as a cheat sheet
-3. **Practice**: Complete exercises in `EXERCISES.md`
-4. **Run Examples**: Execute the example files to see Zod in action
-5. **Experiment**: Modify the sample data and schemas to test different scenarios
+1. **Run Examples**: Execute the example files to see Zod in action
+2. **Experiment**: Modify the sample data and schemas to test different scenarios
+3. **For Learning**: See `../../labs/using-zod/` for guided exercises
+4. **For Reference**: Check `../../labs/using-zod/QUICK_REFERENCE.md` for syntax help
 
-## 🏗️ Key Concepts Demonstrated
+## Key Concepts Demonstrated
 
 ### Schema Definition
 ```typescript
@@ -158,7 +159,7 @@ const PasswordSchema = z.string()
   .refine(pwd => /[0-9]/.test(pwd), "Must contain number");
 ```
 
-## 🛠️ Real-World Usage Examples
+## Real-World Usage Examples
 
 ### Express.js API Validation
 ```typescript
@@ -199,7 +200,7 @@ const config = z.object({
 }).parse(process.env);
 ```
 
-## 🎯 Best Practices Demonstrated
+## Best Practices Demonstrated
 
 1. **Type Safety**: All schemas automatically generate TypeScript types
 2. **Error Handling**: Comprehensive error handling with detailed messages
@@ -208,7 +209,7 @@ const config = z.object({
 5. **Performance**: Efficient validation suitable for production use
 6. **Developer Experience**: Clear error messages and good debugging tools
 
-## 📋 Common Use Cases
+## Common Use Cases
 
 - **API Development**: Validate request/response data in REST or GraphQL APIs
 - **Form Validation**: Client and server-side form validation
@@ -217,7 +218,7 @@ const config = z.object({
 - **Database Models**: Ensure data integrity before database operations
 - **Microservices**: Validate data at service boundaries
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -239,16 +240,16 @@ Enable detailed error messages:
 const schema = z.string().debug(); // Adds debugging info
 ```
 
-## 📚 Additional Resources
+## Additional Resources
 
 - **[Official Zod Documentation](https://zod.dev/)** - Complete API reference
 - **[Zod GitHub Repository](https://github.com/colinhacks/zod)** - Source code and issues
 - **[TypeScript Handbook](https://www.typescriptlang.org/docs/)** - TypeScript fundamentals
-- **`GUIDE.md`** - Comprehensive beginner's guide
-- **`QUICK_REFERENCE.md`** - Handy cheat sheet
-- **`EXERCISES.md`** - Practice problems with solutions
+- **`../../labs/using-zod/GUIDE.md`** - Comprehensive beginner's guide
+- **`../../labs/using-zod/QUICK_REFERENCE.md`** - Handy cheat sheet
+- **`../../labs/using-zod/EXERCISES.md`** - Practice problems with solutions
 
-## 🎉 Next Steps
+## Next Steps
 
 After mastering this example:
 
@@ -257,21 +258,3 @@ After mastering this example:
 3. **Framework integration**: Use with Express.js, Next.js, tRPC, or other frameworks
 4. **Testing**: Write comprehensive tests for your validation schemas
 5. **Performance optimization**: Learn about schema caching and optimization techniques
-
-## 🤝 Contributing
-
-Feel free to:
-- Add more examples
-- Improve documentation
-- Fix bugs or typos
-- Suggest new features
-
-## 📄 License
-
-MIT License - feel free to use this code in your own projects and training materials.
-
----
-
-**Happy validating!** 🎊
-
-*This example is part of a TypeScript training course. For more examples and tutorials, check out the other demos in this repository.*

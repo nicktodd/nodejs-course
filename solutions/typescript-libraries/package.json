@@ -1,0 +1,8 @@
+{
+
+  
+  "type": "module",
+  "dependencies": {
+    "nanoid": "^5.1.5"
+  }
+}

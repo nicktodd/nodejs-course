@@ -79,12 +79,12 @@ async function fetchSinglePlanet() {
         const planetData = await fetchPlanetData(1);
         
         // This line won't execute until the above Promise resolves
-        console.log('✅ Planet data fetched successfully!');
+        console.log('Planet data fetched successfully!');
         displayPlanetInfo(planetData);
         
     } catch (error) {
         // If the Promise rejects, the error is caught here
-        console.error('❌ Error fetching planet data:', error.message);
+        console.error('Error fetching planet data:', error.message);
     }
 }
 
@@ -110,7 +110,7 @@ async function fetchMultiplePlanetsSequentially() {
         console.log('All planets fetched sequentially with async/await!');
         
     } catch (error) {
-        console.error('❌ Error in sequential fetch:', error.message);
+        console.error('Error in sequential fetch:', error.message);
     }
 }
 
@@ -135,13 +135,13 @@ async function fetchMultiplePlanetsInParallel() {
             planet3Promise
         ]);
         
-        console.log('✅ All planets fetched in parallel!');
+        console.log('All planets fetched in parallel!');
         console.log(`Planet 1: ${planet1.name}`);
         console.log(`Planet 2: ${planet2.name}`);
         console.log(`Planet 3: ${planet3.name}`);
         
     } catch (error) {
-        console.error('❌ Error in parallel fetch:', error.message);
+        console.error('Error in parallel fetch:', error.message);
     }
 }
 
@@ -159,10 +159,10 @@ async function fetchPlanetsWithIndividualErrorHandling() {
         try {
             const planet = await fetchPlanetData(i);
             results.push({ success: true, planet: planet });
-            console.log(`✅ Fetched planet ${i}: ${planet.name}`);
+            console.log(`Fetched planet ${i}: ${planet.name}`);
         } catch (error) {
             results.push({ success: false, error: error.message });
-            console.log(`❌ Failed to fetch planet ${i}: ${error.message}`);
+            console.log(`Failed to fetch planet ${i}: ${error.message}`);
         }
     }
     
@@ -184,7 +184,7 @@ async function fetchPlanetsWithDelay() {
             console.log(`Fetching planet ${i}...`);
             
             const planet = await fetchPlanetData(i);
-            console.log(`✅ Received: ${planet.name}`);
+            console.log(`Received: ${planet.name}`);
             
             // Wait 1 second before next request
             if (i < 12) {
@@ -196,7 +196,7 @@ async function fetchPlanetsWithDelay() {
         console.log('All planets fetched with delays!');
         
     } catch (error) {
-        console.error('❌ Error in delayed fetch:', error.message);
+        console.error('Error in delayed fetch:', error.message);
     }
 }
 
@@ -223,9 +223,9 @@ async function runAllExamples() {
 // Start the examples
 console.log('Starting Async/Await examples...');
 runAllExamples().then(() => {
-    console.log('\n🎉 All async/await examples completed!');
+    console.log('\nAll async/await examples completed!');
 }).catch((error) => {
-    console.error('❌ Error running examples:', error.message);
+    console.error('Error running examples:', error.message);
 });
 
 /**

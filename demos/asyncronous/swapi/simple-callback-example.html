@@ -117,11 +117,11 @@
             fetchPlanetData(planetId, function(error, planetData) {
                 if (error) {
                     // Handle error case
-                    resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                    resultDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
                 } else {
                     // Handle success case
                     resultDiv.innerHTML = `
-                        <span class="success">✅ Planet fetched successfully with callback!</span>
+                        <span class="success">Planet fetched successfully with callback!</span>
                         ${displayPlanetInfo(planetData)}
                         <p><small>This data was fetched using the traditional callback pattern.</small></p>
                     `;
@@ -130,7 +130,7 @@
         }
 
         // Show initial message
-        console.log("🚀 Callback Example Loaded!");
+        console.log(" Callback Example Loaded!");
         console.log("This example shows how callbacks work with asynchronous operations.");
     </script>
 </body>

@@ -1,10 +1,7 @@
 import { z } from 'zod';
 
 /**
- * This export function runBasicValidationExamples() {
-  console.log("BASIC SCHEMA  console.log("SAFE PARSING (NO EXCEPTIONS)");
-  console.log("=".repeat(40));ALIDATION EXAMPLES");
-  console.log("=".repeat(50)); demonstrates basic Zod schema creation and validation
+ * This file demonstrates basic Zod schema creation and validation
  * Perfect for beginners to understand the fundamentals
  */
 
@@ -39,7 +36,7 @@ const dateSchema = z.string().datetime("Please provide a valid ISO datetime");
 // EXAMPLE USAGE
 // ========================================
 
-export function runBasicValidationExamples() {
+export function runBasicExamples() {
   console.log("BASIC SCHEMA VALIDATION EXAMPLES");
   console.log("=====================================\n");
 

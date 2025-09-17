@@ -15,7 +15,7 @@ async function startApolloServer() {
     listen: { port: 0 }, // Port 0 makes the OS assign a free port
   });
 
-  console.log(`🚀 GraphQL server ready at: ${url}`);
+  console.log(` GraphQL server ready at: ${url}`);
   return { server, url };
 }
 

@@ -1,4 +1,4 @@
-
+  
 import _ from "lodash";
 
 // Define a User type

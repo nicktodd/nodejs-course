@@ -122,14 +122,14 @@
                 .then(function(planetData) {
                     // This runs when the promise resolves (success)
                     resultDiv.innerHTML = `
-                        <span class="success">✅ Planet fetched successfully with promises!</span>
+                        <span class="success">Planet fetched successfully with promises!</span>
                         ${displayPlanetInfo(planetData)}
                         <p><small>This data was fetched using the Promise pattern with .then() and .catch()</small></p>
                     `;
                 })
                 .catch(function(error) {
                     // This runs when the promise rejects (error)
-                    resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                    resultDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
                 });
         }
 
@@ -158,19 +158,19 @@
                     });
                     
                     resultDiv.innerHTML = `
-                        <span class="success">✅ All ${planets.length} planets fetched in parallel!</span>
+                        <span class="success">All ${planets.length} planets fetched in parallel!</span>
                         ${planetsHtml}
                         <p><small>These planets were fetched simultaneously using Promise.all()</small></p>
                     `;
                 })
                 .catch(function(error) {
                     // If any promise fails, this catch will run
-                    resultDiv.innerHTML = `<span class="error">❌ Error fetching planets: ${error.message}</span>`;
+                    resultDiv.innerHTML = `<span class="error">Error fetching planets: ${error.message}</span>`;
                 });
         }
 
         // Show initial message
-        console.log("🚀 Promise Example Loaded!");
+        console.log(" Promise Example Loaded!");
         console.log("This example shows how promises provide cleaner async code than callbacks.");
     </script>
 </body>

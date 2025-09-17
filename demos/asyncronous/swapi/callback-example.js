@@ -76,7 +76,7 @@ fetchPlanetWithCallback(1, function(error, planetData) {
         console.error('Error fetching planet data:', error.message);
     } else {
         // Handle success case
-        console.log('✅ Planet data fetched successfully!');
+        console.log('Planet data fetched successfully!');
         displayPlanetInfo(planetData);
     }
 });

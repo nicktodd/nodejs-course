@@ -1,0 +1,23 @@
+{
+  "name": "zod-example-app",
+  "version": "1.0.0",
+  "description": "A simple example application demonstrating Zod validation for TypeScript beginners",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "node --test dist/test.js"
+  },
+  "keywords": ["zod", "typescript", "validation", "example"],
+  "author": "Training Course",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.22.0"
+  }
+}

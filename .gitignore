@@ -89,3 +89,6 @@ typings/
 
 dist
 dist/
+
+.vscode
+.vscode/*

@@ -128,14 +128,14 @@
                 
                 // This line only runs after the data is fully loaded
                 resultDiv.innerHTML = `
-                    <span class="success">✅ Planet fetched successfully with async/await!</span>
+                    <span class="success">Planet fetched successfully with async/await!</span>
                     ${displayPlanetInfo(planetData)}
                     <p><small>This data was fetched using async/await syntax - the cleanest approach!</small></p>
                 `;
                 
             } catch (error) {
                 // Handle any errors that occurred
-                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                resultDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
             }
         }
 
@@ -162,18 +162,18 @@
                 }
                 
                 resultDiv.innerHTML = `
-                    <span class="success">✅ All 3 planets fetched sequentially!</span>
+                    <span class="success">All 3 planets fetched sequentially!</span>
                     ${planetsHtml}
                     <p><small>These planets were fetched one after another using async/await in a loop</small></p>
                 `;
                 
             } catch (error) {
-                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                resultDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
             }
         }
 
         // Show initial message
-        console.log("🚀 Async/Await Example Loaded!");
+        console.log(" Async/Await Example Loaded!");
         console.log("This example shows how async/await provides the cleanest syntax for async operations.");
     </script>
 </body>

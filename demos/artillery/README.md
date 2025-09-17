@@ -303,7 +303,7 @@ app.get('/api/new-failure', (req, res) => {
 
 Extend `scripts/automated-test.js` or create new automation scripts using the provided patterns.
 
-## 🎓 Learning Objectives
+## Learning Objectives
 
 This demo teaches:
 
