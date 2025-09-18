@@ -1,0 +1,26 @@
+{
+  "name": "typescript-generics-lab",
+  "version": "1.0.0",
+  "description": "TypeScript Generics Lab Exercises",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "dev": "ts-node --watch src/index.ts",
+    "test": "echo \"Add your test command here\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "generics",
+    "learning",
+    "lab"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

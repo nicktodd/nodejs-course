@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "*.ts"
+, "class-decorators/decorating-classes-parameterized.ts", "class-decorators/decorating-classes.ts", "class-decorators/decorating-constructors-parameterized.ts", "class-decorators/decorating-constructors-wrapped-parameterized.ts", "class-decorators/decorating-constructors.ts"  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

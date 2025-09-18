@@ -1,0 +1,17 @@
+{
+  "name": "generics",
+  "version": "1.0.0",
+  "description": "This folder contains demonstration code for TypeScript generics concepts:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
