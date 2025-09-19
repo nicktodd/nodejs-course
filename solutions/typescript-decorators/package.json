@@ -1,0 +1,19 @@
+{
+  "name": "typescript-decorators-solutions",
+  "version": "1.0.0",
+  "description": "Complete solutions for TypeScript decorators lab exercise",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx index.ts",
+    "test": "npx tsx test.ts",
+    "dev": "npx tsx --watch index.ts"
+  },
+  "keywords": ["typescript", "decorators", "solutions"],
+  "author": "Course Instructor",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}

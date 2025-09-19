@@ -1,20 +1,22 @@
-// Class Decorator - Extends Constructor
-// A decorator that extends the original constructor with additional functionality
+// Constructor Decorators - ECMAScript 2022+ Syntax
+// Modern decorator syntax for extending constructors with additional functionality
 
-console.log("=== Decorator 3: Class Decorator that Extends Constructor ===\n");
+console.log("=== Constructor Decorators Demo ===\n");
 
-// Decorator that extends the constructor to add new properties and methods
-function addAuditFields<T extends { new(...args: any[]): {} }>(constructor: T) {
-  return class extends constructor {
-    // Add audit fields
+// Modern decorator that extends the constructor to add audit fields
+function addAuditFields(value: any, context: ClassDecoratorContext) {
+  console.log(`Adding audit fields to class: ${context.name}`);
+  
+  return class extends value {
+    // Add audit fields as public properties
     public createdAt: Date = new Date();
     public id: string = Math.random().toString(36).substring(2, 9);
     public version: number = 1;
     
     constructor(...args: any[]) {
       super(...args);
-      console.log(`Audit fields added to ${constructor.name} instance`);
-      console.log(`ID: ${this.id}, Created: ${this.createdAt.toISOString()}`);
+      console.log(`[AUDIT] Audit fields added to ${context.name} instance`);
+      console.log(`[AUDIT] ID: ${this.id}, Created: ${this.createdAt.toISOString()}`);
     }
     
     // Add audit methods
@@ -24,18 +26,25 @@ function addAuditFields<T extends { new(...args: any[]): {} }>(constructor: T) {
     
     updateVersion(): void {
       this.version++;
-      console.log(`${constructor.name} version updated to ${this.version}`);
+      console.log(`[AUDIT] ${context.name} version updated to ${this.version}`);
     }
     
     getAge(): number {
       return Date.now() - this.createdAt.getTime();
     }
+    
+    touch(): void {
+      this.version++;
+      console.log(`[AUDIT] ${context.name} touched, version: ${this.version}`);
+    }
   };
 }
 
-// Another decorator that adds validation capabilities
-function addValidation<T extends { new(...args: any[]): {} }>(constructor: T) {
-  return class extends constructor {
+// Modern decorator that adds validation capabilities
+function addValidation(value: any, context: ClassDecoratorContext) {
+  console.log(`Adding validation to class: ${context.name}`);
+  
+  return class extends value {
     public isValid: boolean = true;
     public validationErrors: string[] = [];
     
@@ -48,16 +57,24 @@ function addValidation<T extends { new(...args: any[]): {} }>(constructor: T) {
       this.validationErrors = [];
       this.isValid = true;
       
-      // Basic validation - can be overridden in subclasses
-      for (const [key, value] of Object.entries(this)) {
-        if (value === null || value === undefined || value === '') {
+      // Basic validation - check for required fields
+      for (const [key, propertyValue] of Object.entries(this)) {
+        // Skip functions and special properties
+        if (typeof propertyValue === 'function' || key.startsWith('_') || 
+            ['isValid', 'validationErrors', 'createdAt', 'id', 'version'].includes(key)) {
+          continue;
+        }
+        
+        if (propertyValue === null || propertyValue === undefined || propertyValue === '') {
           this.validationErrors.push(`${key} is required`);
           this.isValid = false;
         }
       }
       
       if (!this.isValid) {
-        console.log(`Validation failed for ${constructor.name}:`, this.validationErrors);
+        console.log(`[VALIDATION] Validation failed for ${context.name}:`, this.validationErrors);
+      } else {
+        console.log(`[VALIDATION] ${context.name} passed validation`);
       }
       
       return this.isValid;
@@ -65,22 +82,50 @@ function addValidation<T extends { new(...args: any[]): {} }>(constructor: T) {
     
     getValidationSummary(): string {
       return this.isValid 
-        ? `${constructor.name} is valid` 
-        : `${constructor.name} has ${this.validationErrors.length} validation errors`;
+        ? `${context.name} is valid` 
+        : `${context.name} has ${this.validationErrors.length} validation errors: ${this.validationErrors.join(', ')}`;
+    }
+    
+    revalidate(): boolean {
+      console.log(`[VALIDATION] Revalidating ${context.name}...`);
+      return this.validate();
     }
   };
 }
 
-// Apply decorators to classes
+// Modern decorator for logging constructor calls
+function logConstruction(value: any, context: ClassDecoratorContext) {
+  console.log(`Adding construction logging to class: ${context.name}`);
+  
+  return class extends value {
+    constructor(...args: any[]) {
+      console.log(`[CONSTRUCT] Creating instance of ${context.name} with args:`, args);
+      super(...args);
+      console.log(`[CONSTRUCT] Instance of ${context.name} created successfully`);
+    }
+  };
+}
+
+// Apply modern decorators to classes
 @addAuditFields
-class Account {
+class BankAccount {
   constructor(public accountNumber: string, public balance: number, public ownerName: string) {
-    console.log(`Account created: ${accountNumber} for ${ownerName} with balance $${balance}`);
+    console.log(`BankAccount initialized: ${accountNumber} for ${ownerName} with balance $${balance}`);
   }
   
   deposit(amount: number): void {
     this.balance += amount;
     console.log(`Deposited $${amount}. New balance: $${this.balance}`);
+  }
+  
+  withdraw(amount: number): boolean {
+    if (amount <= this.balance) {
+      this.balance -= amount;
+      console.log(`Withdrew $${amount}. New balance: $${this.balance}`);
+      return true;
+    }
+    console.log(`Insufficient funds. Current balance: $${this.balance}`);
+    return false;
   }
   
   getBalance(): number {
@@ -89,64 +134,115 @@ class Account {
 }
 
 @addValidation
-class Contact {
-  constructor(public firstName: string, public lastName: string, public email: string) {
-    console.log(`Contact created: ${firstName} ${lastName} (${email})`);
+class CustomerContact {
+  constructor(public firstName: string, public lastName: string, public email: string, public phone?: string) {
+    console.log(`CustomerContact initialized: ${firstName} ${lastName}`);
   }
   
   getFullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
+  
+  getContactInfo(): string {
+    return `${this.getFullName()} - ${this.email}${this.phone ? ` (${this.phone})` : ''}`;
+  }
 }
 
-// Multiple decorators (they compose from bottom to top)
+// Multiple decorators - they compose from right to left (bottom to top in vertical syntax)
+@logConstruction
 @addValidation
 @addAuditFields
-class Staff {
-  constructor(public employeeId: string, public name: string, public department: string, public salary: number) {
-    console.log(`Staff created: ${employeeId} - ${name} in ${department}`);
+class Employee {
+  constructor(
+    public employeeId: string, 
+    public name: string, 
+    public department: string, 
+    public salary: number,
+    public startDate: Date = new Date()
+  ) {
+    console.log(`Employee initialized: ${employeeId} - ${name} in ${department}`);
   }
   
   getEmployeeInfo(): string {
     return `${this.employeeId}: ${this.name} (${this.department}) - $${this.salary}`;
   }
+  
+  promote(newSalary: number, newDepartment?: string): void {
+    const oldSalary = this.salary;
+    const oldDepartment = this.department;
+    
+    this.salary = newSalary;
+    if (newDepartment) this.department = newDepartment;
+    
+    console.log(`Employee promoted: ${oldSalary} -> ${newSalary}${newDepartment ? `, ${oldDepartment} -> ${newDepartment}` : ''}`);
+  }
 }
 
-// Test the extended classes
-console.log("\n--- Testing Extended Account Class ---");
-const account = new Account("ACC-001", 1000, "Alice Johnson");
-console.log("Account balance:", account.getBalance());
-console.log("Audit info:", (account as any).getAuditInfo());
+// Demo and test the enhanced classes
+console.log("\n--- Testing BankAccount with Audit Fields ---");
+const account = new BankAccount("ACC-12345", 1500, "Alice Johnson");
+console.log("Initial balance:", account.getBalance());
 
-// Wait a bit and update version
+// Test audit functionality
+const auditAccount = account as any;
+console.log("Audit info:", auditAccount.getAuditInfo());
+auditAccount.updateVersion();
+
+// Test original functionality
+account.deposit(250);
+account.withdraw(100);
+console.log("Final balance:", account.getBalance());
+
 setTimeout(() => {
-  (account as any).updateVersion();
-  console.log("Account age (ms):", (account as any).getAge());
-}, 100);
+  console.log("Account age (ms):", auditAccount.getAge());
+  auditAccount.touch();
+}, 50);
 
-console.log("\n--- Testing Validated Contact Class ---");
-const validContact = new Contact("John", "Doe", "john@example.com");
-console.log("Contact name:", validContact.getFullName());
-console.log("Validation:", (validContact as any).getValidationSummary());
+console.log("\n--- Testing CustomerContact with Validation ---");
+const validContact = new CustomerContact("John", "Doe", "john.doe@example.com", "555-0123");
+console.log("Contact info:", validContact.getContactInfo());
 
-// Create invalid contact
-console.log("\nCreating invalid contact:");
-const invalidContact = new Contact("", "Doe", "");
-console.log("Invalid contact validation:", (invalidContact as any).getValidationSummary());
+const validationContact = validContact as any;
+console.log("Validation summary:", validationContact.getValidationSummary());
 
-console.log("\n--- Testing Staff with Multiple Decorators ---");
-const staff = new Staff("EMP-001", "Jane Smith", "Engineering", 75000);
-console.log("Staff info:", staff.getEmployeeInfo());
-console.log("Staff audit info:", (staff as any).getAuditInfo());
-console.log("Staff validation:", (staff as any).getValidationSummary());
+// Test invalid contact
+console.log("\nTesting invalid contact:");
+const invalidContact = new CustomerContact("", "Smith", "", "");
+const invalidValidation = invalidContact as any;
+console.log("Invalid contact summary:", invalidValidation.getValidationSummary());
 
-// Test that original functionality is preserved
-account.deposit(500);
-console.log("Updated account balance:", account.getBalance());
+console.log("\n--- Testing Employee with Multiple Decorators ---");
+const employee = new Employee("EMP-001", "Jane Smith", "Engineering", 85000);
+console.log("Employee info:", employee.getEmployeeInfo());
 
-console.log("\n--- Decorator Composition Demonstration ---");
-console.log("Account has audit fields:", 'createdAt' in account);
-console.log("Account has validation:", 'isValid' in account);
-console.log("Contact has audit fields:", 'createdAt' in validContact);
-console.log("Contact has validation:", 'isValid' in validContact);
-console.log("Staff has both:", 'createdAt' in staff && 'isValid' in staff);
+const enhancedEmployee = employee as any;
+console.log("Employee audit:", enhancedEmployee.getAuditInfo());
+console.log("Employee validation:", enhancedEmployee.getValidationSummary());
+
+// Test employee functionality
+employee.promote(95000, "Senior Engineering");
+console.log("Updated info:", employee.getEmployeeInfo());
+enhancedEmployee.revalidate();
+
+console.log("\n--- Decorator Feature Analysis ---");
+console.log("BankAccount features:");
+console.log("  - Has audit fields:", 'createdAt' in account);
+console.log("  - Has validation:", 'isValid' in account);
+console.log("  - Has logging:", account.constructor.name.includes('class'));
+
+console.log("\nCustomerContact features:");
+console.log("  - Has audit fields:", 'createdAt' in validContact);
+console.log("  - Has validation:", 'isValid' in validContact);
+console.log("  - Has logging:", validContact.constructor.name.includes('class'));
+
+console.log("\nEmployee features:");
+console.log("  - Has audit fields:", 'createdAt' in employee);
+console.log("  - Has validation:", 'isValid' in employee);
+console.log("  - Has logging:", employee.constructor.name.includes('class'));
+
+console.log("\nConstructor decorator concepts:");
+console.log("- Modern syntax: (value, context) => ExtendedClass");
+console.log("- Class extension with super() calls");
+console.log("- Multiple decorator composition");
+console.log("- Context.name provides class name information");
+console.log("- Preserve original class functionality");

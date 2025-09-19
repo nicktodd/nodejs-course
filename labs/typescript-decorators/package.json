@@ -1,0 +1,19 @@
+{
+  "name": "typescript-decorators-lab",
+  "version": "1.0.0",
+  "description": "Lab exercise for learning TypeScript decorators with modern ECMAScript 2022+ syntax",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx index.ts",
+    "test": "npx tsx test.ts",
+    "dev": "npx tsx --watch index.ts"
+  },
+  "keywords": ["typescript", "decorators", "lab", "exercise"],
+  "author": "Course Instructor",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}
