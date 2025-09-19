@@ -1,0 +1,28 @@
+{
+  "name": "typescript-vitest-mocking-demo",
+  "version": "1.0.0",
+  "description": "TypeScript/Vitest mocking demonstration - Speaking Clock implementation",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:watch": "vitest --watch",
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["typescript", "vitest", "mocking", "testing", "jest-migration"],
+  "author": "Course Instructor",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "audio-loader": "^1.0.3",
+    "audio-play": "^2.3.1",
+    "aws-sdk": "^2.992.0"
+  }
+}
