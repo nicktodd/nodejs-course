@@ -7,23 +7,64 @@ In this lab, you'll work with TypeScript inheritance and interfaces by creating 
 1. Create a new TypeScript file called `banking-system.ts`
 2. Make sure you have TypeScript and ts-node installed to run your code
 
-## Part 1: Basic Account Class
+## Part 1: Reuse the Account Class
 
-Create an `Account` class with the following:
+For this lab, you should:
+
+**Option 1:** Reuse your `Account` class from the previous TypeScript Classes lab if you completed it.
+
+**Option 2:** Use the solution `Account` class provided below if you haven't completed the previous lab:
+
+```typescript
+class Account {
+  protected accountNumber: string;
+  protected balance: number;
+  protected accountHolderName: string;
+
+  constructor(accountNumber: string, balance: number, accountHolderName: string) {
+    this.accountNumber = accountNumber;
+    this.balance = balance;
+    this.accountHolderName = accountHolderName;
+  }
+
+  deposit(amount: number): void {
+    if (amount > 0) {
+      this.balance += amount;
+      console.log(`Deposited $${amount}. New balance: $${this.balance}`);
+    } else {
+      console.log("Deposit amount must be positive");
+    }
+  }
+
+  withdraw(amount: number): void {
+    if (amount > 0 && amount <= this.balance) {
+      this.balance -= amount;
+      console.log(`Withdrew $${amount}. New balance: $${this.balance}`);
+    } else {
+      console.log("Insufficient funds or invalid amount");
+    }
+  }
+
+  getBalance(): number {
+    return this.balance;
+  }
+
+  addInterest(): void {
+    const interest = this.balance * 0.02;
+    this.balance += interest;
+    console.log(`Added interest: $${interest.toFixed(2)}. New balance: $${this.balance.toFixed(2)}`);
+  }
+}
+```
+
+The `Account` class has:
 - Properties: `accountNumber` (string), `balance` (number), `accountHolderName` (string)
-- Constructor that initializes these properties
+- A constructor that initializes these properties
 - Methods:
   - `deposit(amount: number): void` - adds amount to balance
   - `withdraw(amount: number): void` - subtracts amount from balance (only if sufficient funds)
   - `getBalance(): number` - returns current balance
   - `addInterest(): void` - adds 2% interest to the balance
-
-Test your class by:
-1. Creating 2-3 Account instances
-2. Adding them to an array
-3. Performing deposits and withdrawals
-4. Calling `addInterest()` on each account
-5. Displaying the final balances
 
 ## Part 2: Inheritance with Subclasses
 

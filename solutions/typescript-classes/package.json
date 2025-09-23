@@ -1,0 +1,14 @@
+{
+  "name": "typescript-classes-solution",
+  "version": "1.0.0",
+  "description": "Solution for TypeScript classes lab",
+  "main": "banking-system.js",
+  "scripts": {
+    "start": "npx ts-node banking-system.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+}
