@@ -16,31 +16,31 @@ This comprehensive course covers JavaScript fundamentals, TypeScript development
 - [Lab Instructions](labs/control-flow/README.md)
 - [Solutions](/solutions/control-flow)
 
-### Chapter 3: JavaScript Arrays and Strings
+### Chapter 2: JavaScript Arrays and Strings
 - **Objectives**: Array and string manipulation
 - [Demo Guide](demos/arrays-strings/README.md)
 - [Lab Instructions](labs/arrays-strings/README.md)
 - [Solutions](/solutions/arrays-strings)
 
-### Chapter 4: JavaScript Functions
+### Chapter 2: JavaScript Functions
 - **Objectives**: Reusable code blocks, function implementation, scope, and functions as data
 - [Demo Guide](demos/functions/README.md)
 - [Lab Instructions](labs/functions/README.md)
 - [Solutions](/solutions/functions)
 
-### Chapter 5: TypeScript Essentials
+### Chapter 3: TypeScript Essentials
 - **Objectives**: TypeScript basics, types, transpilation, arrays, tuples, enums, and union types
 - [Demo Guide](demos/typescript-essentials/README.md)
 - [Lab Instructions](labs/typescript-essentials/README.md)
 - [Solutions](/solutions/typescript-essentials)
 
-### Chapter 6: Defining and Calling Functions in TypeScript
+### Chapter 4: Defining and Calling Functions in TypeScript
 - **Objectives**: Typed parameters, destructuring, optional parameters, and lambda expressions
 - [Demo Guide](demos/typescript-functions/README.md)
 - [Lab Instructions](labs/typescript-functions/README.md)
 - [Solutions](/solutions/typescript-functions)
 
-### Chapter 7: Defining and Using Classes in TypeScript
+### Chapter 5: Defining and Using Classes in TypeScript
 - **Objectives**: Class definition, constructors, properties, and access modifiers
 - [Demo Guide](demos/typescript-classes/README.md)
 - [Lab Instructions](labs/typescript-classes/README.md)
