@@ -1,8 +1,8 @@
 # JavaScript, TypeScript & Playwright Training Repository
 
-> **Professional Training Materials from [Watchelm](https://watchelm.com)**
+> **Professional Training Materials**
 >
-> This repository contains comprehensive course materials, hands-on labs, and practical demonstrations for JavaScript, TypeScript, and Playwright training programs delivered by **Watch Elm Consulting Ltd**.
+> This repository contains comprehensive course materials, hands-on labs, and practical demonstrations for JavaScript, TypeScript, and Playwright training programs. These materials are used by select partner training companies including **KPL** and **Neueda**, as well as by [Watchelm](https://watchelm.com).
 
 ---
 
@@ -18,7 +18,7 @@ This repository serves as the complete learning resource for multiple profession
 
 ## 📚 Available Training Programs
 
-This repository supports the following **Watchelm** training courses:
+This repository supports the following professional training courses:
 
 ### 🟨 JavaScript Foundation Course
 **Build solid fundamentals in the world's most popular programming language**
@@ -64,11 +64,15 @@ Master API testing using Playwright, Microsoft's cutting-edge testing framework.
 
 ---
 
-## 🚀 Professional Training by Watchelm
+## 🚀 Professional Training
 
-### Why Choose Watchelm Training?
+### Training Partners
 
-**Watch Elm Consulting Ltd** is a leading provider of technical training, consulting, and EdTech solutions, helping organizations fill critical skill gaps and solve complex business challenges.
+These materials are utilized by select partner training companies including **KPL** and **Neueda**, delivering high-quality technical training to help organizations fill critical skill gaps and solve complex business challenges.
+
+### Training Provider: Watchelm
+
+**Watch Elm Consulting Ltd** is one of the providers using these materials for technical training, consulting, and EdTech solutions.
 
 #### 🏆 **Accreditations & Expertise**
 - **AWS Professional Certified Solutions Architects**
@@ -194,7 +198,7 @@ cd labs/basic-playwright/          # Start with Playwright API testing
 Explore this repository at your own pace using the structured learning materials. Each module builds upon the previous one, ensuring a comprehensive understanding of modern web development practices.
 
 ### Professional Training
-Ready for instructor-led, comprehensive training? **Watchelm** offers:
+Ready for instructor-led, comprehensive training? Our partner training companies offer:
 
 **🏢 Corporate Training**
 - Customized curriculum for your team's specific needs
@@ -208,8 +212,11 @@ Ready for instructor-led, comprehensive training? **Watchelm** offers:
 - Practical, hands-on approach
 - Career advancement opportunities
 
-### Contact Watchelm Today
+### Training Contacts
 
+For professional training inquiries, contact our partner training companies **KPL** and **Neueda**, or:
+
+**Watchelm:**
 **📞 Phone:** [+44 (0) 117 441 7005](tel:+441174417005)
 **📧 Email:** [enquiries@watchelm.com](mailto:enquiries@watchelm.com)
 **🌐 Website:** [https://watchelm.com](https://watchelm.com)
@@ -227,4 +234,4 @@ This training material is provided for educational purposes. Individual modules 
 
 ---
 
-*Transform your development skills with professional training from industry experts. Join thousands of developers who have advanced their careers through Watchelm's comprehensive training programs.*
+*Transform your development skills with professional training from industry experts. Join thousands of developers who have advanced their careers through comprehensive training programs delivered by our partner companies including KPL, Neueda, and Watchelm.*
