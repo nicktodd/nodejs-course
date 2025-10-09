@@ -59,9 +59,10 @@ type Person = [string, number, boolean]; // [name, age, isEmployed]
 4. Create an array of `Person` tuples
 5. Write a function that filters the array to find people who are employed
 6. Write a function that calculates the average age of people in the array
-7. Use the enum in a function that returns whether a given day is a weekday or weekend
+7. Use your functions and log how many people are employed, and what the average age is.
+8. Use the enum in a function that returns whether a given day is a weekday or weekend.
 
-### Expected Output:
+### Sample Code:
 ```typescript
 // Example code
 enum DaysOfWeek {
@@ -122,7 +123,7 @@ Learn how to configure TypeScript and work with strictness settings.
 3. Create a file called `config-demo.ts` that includes:
    - Variables with explicit and implicit type assignments
    - A function with properly typed parameters and return value
-   - An object with a defined interface
+   - An object with a defined interface (ie. specific properties)
    - Usage of union types to allow null or undefined values
 4. Compile the project using the configuration
 5. Fix any strictness errors that appear
