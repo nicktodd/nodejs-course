@@ -1,0 +1,21 @@
+{
+  "name": "typescript-async-demo",
+  "version": "1.0.0",
+  "description": "Demonstration of asynchronous programming in TypeScript",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "start:promises": "ts-node promises.ts",
+    "start:async-await": "ts-node async-await.ts",
+    "start:parallel": "ts-node parallel.ts",
+    "start:race": "ts-node race.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

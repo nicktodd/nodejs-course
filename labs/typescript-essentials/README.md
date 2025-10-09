@@ -1,144 +1,282 @@
 # TypeScript Essentials Lab
 
 ## Objectives
-- Practice using TypeScript types and type annotations
+- Practice using TypeScript basic types and type annotations
 - Work with arrays, tuples, and enums
-- Implement interfaces and type aliases
-- Handle null, undefined, and unknown types
-- Use union types effectively
+- Configure TypeScript compiler options
+- Convert JavaScript code to TypeScript
+- Handle type checking and strictness
 
-## Exercise 1: Library Catalog System
-Create a TypeScript-based library catalog system that manages books and their metadata.
+## Exercise 1: Getting Started with TypeScript
+Set up a TypeScript environment and practice basic type annotations.
 
 ### Requirements:
-1. Define appropriate types for:
-   - Book (title, author, ISBN, published date, categories)
-   - Author (name, birthYear, nationality)
-   - Category (enum)
-   - Library Member
-2. Implement functions for:
-   - Adding books to catalog
-   - Searching books by various criteria
-   - Checking out/returning books
-3. Use proper type safety and null checking
-4. Implement proper error handling
+1. Create a new file called `basics.ts`
+2. Define variables with the following types:
+   - `name` (string)
+   - `age` (number)
+   - `isStudent` (boolean)
+   - `courses` (array of strings)
+   - `grades` (array of numbers)
+3. Define a simple function that accepts two numbers and returns their sum
+4. Compile your TypeScript code using the TypeScript compiler
+5. Run the compiled JavaScript code using Node.js
 
 ### Expected Output:
 ```typescript
-// Example usage
-const book: Book = {
-    title: "TypeScript Essentials",
-    author: {
-        name: "John Doe",
-        birthYear: 1980,
-        nationality: "American"
-    },
-    ISBN: "123-456-789",
-    publishedDate: new Date(2023, 0, 1),
-    categories: [Category.Programming, Category.Education]
+// Example code
+const name: string = "John Doe";
+const age: number = 25;
+const isStudent: boolean = true;
+const courses: string[] = ["TypeScript", "JavaScript", "Node.js"];
+const grades: number[] = [85, 90, 95];
+
+function addNumbers(a: number, b: number): number {
+    return a + b;
+}
+
+console.log(`${name} is ${age} years old`);
+console.log(`Is student: ${isStudent}`);
+console.log(`Courses: ${courses.join(", ")}`);
+console.log(`Average grade: ${grades.reduce((a, b) => a + b, 0) / grades.length}`);
+console.log(`Sum of 5 and 10: ${addNumbers(5, 10)}`);
+```
+
+## Exercise 2: Working with Complex Types
+Practice working with arrays, tuples, and enums in TypeScript.
+
+### Requirements:
+1. Create a new file called `complex-types.ts`
+2. Define an enum for `DaysOfWeek` (Monday through Sunday)
+3. Create a tuple type called `Person` that contains a name (string), age (number), and whether they are employed (boolean)
+4. Create an array of `Person` tuples
+5. Write a function that filters the array to find people who are employed
+6. Write a function that calculates the average age of people in the array
+7. Use the enum in a function that returns whether a given day is a weekday or weekend
+
+### Expected Output:
+```typescript
+// Example code
+enum DaysOfWeek {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+}
+
+// Define Person tuple type
+type Person = [string, number, boolean]; // [name, age, isEmployed]
+
+// Create array of people
+const people: Person[] = [
+    ["Alice", 25, true],
+    ["Bob", 30, false],
+    ["Charlie", 35, true],
+    ["Diana", 28, true]
+];
+
+// Function to filter employed people
+function findEmployed(people: Person[]): Person[] {
+    return people.filter(person => person[2] === true);
+}
+
+// Function to calculate average age
+function calculateAverageAge(people: Person[]): number {
+    const totalAge = people.reduce((sum, person) => sum + person[1], 0);
+    return totalAge / people.length;
+}
+
+// Function to check if a day is a weekday
+function isWeekday(day: DaysOfWeek): boolean {
+    return day >= DaysOfWeek.Monday && day <= DaysOfWeek.Friday;
+}
+
+// Display results
+const employed = findEmployed(people);
+console.log("Employed people:", employed.length);
+console.log("Average age:", calculateAverageAge(people));
+console.log("Is Monday a weekday?", isWeekday(DaysOfWeek.Monday));
+console.log("Is Saturday a weekday?", isWeekday(DaysOfWeek.Saturday));
+```
+
+## Exercise 3: TypeScript Configuration and Strictness
+Learn how to configure TypeScript and work with strictness settings.
+
+### Requirements:
+1. Create a new project directory called `config-project`
+2. Set up a `tsconfig.json` file with the following features:
+   - Target ES2020
+   - Enable strict mode
+   - Include source map generation
+   - Specify an output directory called "dist"
+3. Create a file called `config-demo.ts` that includes:
+   - Variables with explicit and implicit type assignments
+   - A function with properly typed parameters and return value
+   - An object with a defined interface
+   - Usage of union types to allow null or undefined values
+4. Compile the project using the configuration
+5. Fix any strictness errors that appear
+
+### Expected Output:
+```typescript
+// Example tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "strict": true,
+    "sourceMap": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
+}
+
+// Example config-demo.ts
+interface User {
+    id: number;
+    name: string;
+    email: string | null;
+    age?: number; // Optional property
+}
+
+// Explicit type assignments
+const userId: number = 1;
+const userName: string = "John Doe";
+const userEmail: string | null = null;
+
+// Implicit type assignments (let TypeScript infer)
+const isActive = true;
+const scores = [85, 90, 95];
+
+// Function with typed parameters and return value
+function calculateTotal(prices: number[]): number {
+    return prices.reduce((total, price) => total + price, 0);
+}
+
+// Object with defined interface
+const user: User = {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com"
+    // age is optional
 };
 
-// Adding book
-catalog.addBook(book);
+// Using union types for null/undefined
+function getDisplayName(user: User): string {
+    return user.name || "Anonymous";
+}
 
-// Searching
-const results = catalog.searchByAuthor("John Doe");
-const available = catalog.checkAvailability("123-456-789");
+console.log("User:", user);
+console.log("Display name:", getDisplayName(user));
+console.log("Total score:", calculateTotal(scores));
 ```
 
-## Exercise 2: Type-Safe Shopping Cart
-Create a shopping cart system with strong typing.
+## Exercise 4: JavaScript to TypeScript Conversion
+Practice converting JavaScript code to TypeScript.
 
 ### Requirements:
-1. Define types for:
-   - Product (id, name, price, category)
-   - CartItem (product, quantity)
-   - Cart (items, total)
-2. Implement methods for:
-   - Adding/removing items
-   - Updating quantities
-   - Calculating totals
-3. Use union types for different product categories
-4. Implement proper type guards
-5. Handle edge cases (out of stock, invalid quantities)
+1. Create a new file called `conversion.js` with the following JavaScript code:
+   ```javascript
+   // Simple calculator in JavaScript
+   function add(a, b) {
+       return a + b;
+   }
+   
+   function subtract(a, b) {
+       return a - b;
+   }
+   
+   function multiply(a, b) {
+       return a * b;
+   }
+   
+   function divide(a, b) {
+       if (b === 0) {
+           throw new Error("Cannot divide by zero");
+       }
+       return a / b;
+   }
+   
+   const calculator = {
+       add,
+       subtract,
+       multiply,
+       divide,
+       performOperation: function(operation, a, b) {
+           return this[operation](a, b);
+       }
+   };
+   
+   const result1 = calculator.performOperation('add', 10, 5);
+   const result2 = calculator.performOperation('subtract', 10, 5);
+   const result3 = calculator.performOperation('multiply', 10, 5);
+   const result4 = calculator.performOperation('divide', 10, 5);
+   
+   console.log(`Addition: ${result1}`);
+   console.log(`Subtraction: ${result2}`);
+   console.log(`Multiplication: ${result3}`);
+   console.log(`Division: ${result4}`);
+   ```
+
+2. Convert the JavaScript code to TypeScript in a new file called `conversion.ts`:
+   - Add appropriate type annotations to function parameters and return types
+   - Create an interface for the calculator object
+   - Use string literal types for operation names
+   - Enable strict type checking
+
+3. Compile the TypeScript code and ensure it runs correctly
 
 ### Expected Output:
 ```typescript
-const cart = new ShoppingCart();
+// Example conversion to TypeScript
+// The converted code should have proper type annotations
+interface Calculator {
+    add(a: number, b: number): number;
+    subtract(a: number, b: number): number;
+    multiply(a: number, b: number): number;
+    divide(a: number, b: number): number;
+    performOperation(operation: 'add' | 'subtract' | 'multiply' | 'divide', a: number, b: number): number;
+}
 
-cart.addItem({
-    id: "123",
-    name: "TypeScript Book",
-    price: 29.99,
-    category: ProductCategory.Books
-}, 2);
+// Implementation with types
+function add(a: number, b: number): number {
+    return a + b;
+}
 
-console.log(cart.getTotal()); // 59.98
-console.log(cart.getItemCount()); // 2
+// ... rest of the converted code with types
 ```
-
-## Exercise 3: Form Validator
-Create a type-safe form validation system.
-
-### Requirements:
-1. Define types for:
-   - Form fields (text, number, email, date)
-   - Validation rules
-   - Validation results
-2. Implement validators for:
-   - Required fields
-   - Email format
-   - Number ranges
-   - Date validity
-3. Use generics for flexible field types
-4. Implement proper error messages
-5. Handle custom validation rules
-
-### Expected Output:
-```typescript
-const validator = new FormValidator<UserForm>();
-
-validator.addRule('email', {
-    type: 'email',
-    required: true
-});
-
-validator.addRule('age', {
-    type: 'number',
-    min: 18,
-    max: 100
-});
-
-const results = validator.validate({
-    email: 'invalid-email',
-    age: 15
-});
-
-console.log(results.isValid); // false
-console.log(results.errors); // { email: 'Invalid email format', age: 'Age must be at least 18' }
-```
-
-## Bonus Challenge
-Add unit tests for all implementations using TypeScript-compatible testing framework (Jest with ts-jest).
 
 ## Tips
-- Use strict type checking
-- Implement proper error handling
-- Use type guards where appropriate
-- Document your code with TSDoc comments
-- Consider edge cases
-- Use TypeScript's utility types where appropriate
+- Use TypeScript's type inference where appropriate
+- Make sure to run the TypeScript compiler to check for errors
+- Test your compiled code to make sure it works as expected
+- Practice using different compiler options
 
 ## Getting Started
-1. Create librarySystem.ts for Exercise 1
-2. Create shoppingCart.ts for Exercise 2
-3. Create formValidator.ts for Exercise 3
-4. Install required dependencies:
+1. Install TypeScript and the required types for Node.js:
    ```bash
-   npm install typescript @types/node
+   npm install -g typescript
+   npm install @types/node
    ```
-5. Compile and run:
+   
+2. Create the necessary files for each exercise
+   
+3. Compile your TypeScript files:
    ```bash
    tsc filename.ts
+   ```
+   
+4. Run the compiled JavaScript:
+   ```bash
    node filename.js
+   ```
+   
+5. For Exercise 3 with configuration:
+   ```bash
+   tsc -p config-project
+   node config-project/dist/config-demo.js
    ```
