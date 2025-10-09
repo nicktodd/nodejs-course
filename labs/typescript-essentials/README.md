@@ -19,10 +19,12 @@ Set up a TypeScript environment and practice basic type annotations.
    - `courses` (array of strings)
    - `grades` (array of numbers)
 3. Define a simple function that accepts two numbers and returns their sum
-4. Compile your TypeScript code using the TypeScript compiler
-5. Run the compiled JavaScript code using Node.js
+4. Add some console.log statements to print out your variables. 
+5. If you are familar with the concept, you can try using a reducer to print the average grade!
+6. Compile your TypeScript code using the TypeScript compiler
+7. Run the compiled JavaScript code using Node.js
 
-### Expected Output:
+### Sample Code:
 ```typescript
 // Example code
 const name: string = "John Doe";
@@ -48,7 +50,12 @@ Practice working with arrays, tuples, and enums in TypeScript.
 ### Requirements:
 1. Create a new file called `complex-types.ts`
 2. Define an enum for `DaysOfWeek` (Monday through Sunday)
-3. Create a tuple type called `Person` that contains a name (string), age (number), and whether they are employed (boolean)
+3. Create a tuple type called `Person` that contains a name (string), age (number), and whether they are employed (boolean). A tuple type is like a definition of a Tuple. In our example it will look something like this:
+
+```typescript
+type Person = [string, number, boolean]; // [name, age, isEmployed]
+```
+
 4. Create an array of `Person` tuples
 5. Write a function that filters the array to find people who are employed
 6. Write a function that calculates the average age of people in the array
