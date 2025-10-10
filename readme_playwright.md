@@ -71,15 +71,3 @@ This course will teach you how to use Playwright for modern API testing, from se
 ---
 
 For more information on Playwright, visit the [Playwright documentation](https://playwright.dev/).
-
----
-
-## Unresolved Links
-- [Lab Instructions](labs/playwright-getting-started/README.md)
-- [Solutions](solutions/playwright-getting-started/)
-- [Lab Instructions](labs/playwright-core-api-concepts/README.md)
-- [Solutions](solutions/playwright-core-api-concepts/)
-- [Lab Instructions](labs/playwright-advanced-patterns/README.md)
-- [Solutions](solutions/playwright-advanced-patterns/)
-- [Lab Instructions](labs/playwright-api-types/README.md)
-- [Solutions](solutions/playwright-api-types/)
