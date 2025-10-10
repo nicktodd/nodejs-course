@@ -10,8 +10,8 @@ This course will teach you how to use Playwright for modern API testing, from se
 - Project setup and configuration files
 - Writing your first API test
 - Understanding request and response handling
-- [Lab Instructions](labs/playwright-getting-started/README.md)
-- [Solutions](solutions/playwright-getting-started/)
+- [Lab Instructions](labs/basic-playwright/README.md)
+- [Solutions](solutions/basic-playwright/)
 
 
 ### 3. Core API Testing Concepts
@@ -19,33 +19,26 @@ This course will teach you how to use Playwright for modern API testing, from se
 - Working with request headers and parameters
 - Handling request and response bodies
 - API assertions and response validation
-- [Lab Instructions](labs/playwright-core-api-concepts/README.md)
-- [Solutions](solutions/playwright-core-api-concepts/)
+- [Lab Instructions](labs/playwright-core/README.md)
+- [Solutions](solutions/playwright-core/)
 
 
 ### 4. Advanced API Testing Patterns
 - Test data management and fixtures for APIs
 - Handling dynamic data and response chaining
 - Working with file uploads and downloads
-- [Lab Instructions](labs/playwright-advanced-patterns/README.md)
-- [Solutions](solutions/playwright-advanced-patterns/)
+- [Lab Instructions](labs/playwright-advanced-features/README.md)
+- [Solutions](solutions/playwright-advanced-features/)
 
 
 ### 5. Testing Different API Types
 - REST API testing best practices
 - GraphQL API testing and query validation
 - Microservices testing strategies
-- [Lab Instructions](labs/playwright-api-types/README.md)
-- [Solutions](solutions/playwright-api-types/)
+- [Lab Instructions](labs/playwright-graphql/README.md)
+- [Solutions](solutions/playwright-graphql/)
 
 
-### 6. Advanced Features and Performance Testing
-- API performance and load testing
-- Rate limiting and throttling tests
-- Error handling and negative testing scenarios
-- Contract testing and API versioning
-- [Lab Instructions](labs/playwright-advanced-features/README.md)
-- [Solutions](solutions/playwright-advanced-features/)
 
 
 ### 7. Debugging and Troubleshooting API Tests
@@ -78,3 +71,15 @@ This course will teach you how to use Playwright for modern API testing, from se
 ---
 
 For more information on Playwright, visit the [Playwright documentation](https://playwright.dev/).
+
+---
+
+## Unresolved Links
+- [Lab Instructions](labs/playwright-getting-started/README.md)
+- [Solutions](solutions/playwright-getting-started/)
+- [Lab Instructions](labs/playwright-core-api-concepts/README.md)
+- [Solutions](solutions/playwright-core-api-concepts/)
+- [Lab Instructions](labs/playwright-advanced-patterns/README.md)
+- [Solutions](solutions/playwright-advanced-patterns/)
+- [Lab Instructions](labs/playwright-api-types/README.md)
+- [Solutions](solutions/playwright-api-types/)
