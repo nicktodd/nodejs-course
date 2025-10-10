@@ -1,0 +1,24 @@
+{
+  "name": "typescript-fastify-crud-lab",
+  "version": "1.0.0",
+  "description": "Fastify CRUD API lab exercise with TypeScript",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc-watch --onSuccess \"node dist/app.js\"",
+    "start": "node dist/app.js",
+    "watch": "tsc -w"
+  },
+  "keywords": ["typescript", "fastify", "crud", "api", "rest"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.24.3",
+    "@fastify/cors": "^8.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "tsc-watch": "^6.0.4",
+    "@types/node": "^20.8.0"
+  }
+}
