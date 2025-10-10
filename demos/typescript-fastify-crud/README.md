@@ -56,6 +56,21 @@ npm run dev
 npm start
 ```
 
+## Docker: Build and Run
+
+You can build and run the demo using Docker:
+
+```bash
+# Build the Docker image
+# (run this from the project directory containing the Dockerfile)
+docker build -t typescript-user-api .
+
+# Run the Docker container (exposes port 3000)
+docker run -p 3000:3000 -d typescript-user-api
+```
+
+The API will be available at `http://localhost:3000`.
+
 ## Testing the API
 
 You can test the API using curl, Postman, or any HTTP client:

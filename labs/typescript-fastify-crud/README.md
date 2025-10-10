@@ -135,6 +135,49 @@ curl -X PUT http://localhost:3000/books/1 \
 curl -X DELETE http://localhost:3000/books/1
 ```
 
+## Exercise 2.3: Docker - Build and Run Your Application
+
+You can package and run your Fastify API in a Docker container. Follow these steps:
+
+### Step 1: Create a Dockerfile
+Create a file named `Dockerfile` in the root of your lab project with the following content:
+
+```Dockerfile
+# Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY tsconfig.json ./
+COPY src ./src
+RUN npm run build
+
+# Stage 2: Production image
+FROM node:20-alpine AS production
+WORKDIR /app
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+EXPOSE 3000
+CMD ["node", "dist/app.js"]
+```
+
+### Step 2: Build the Docker Image
+Run this command in your terminal (from the project directory):
+
+```bash
+docker build -t typescript-book-api .
+```
+
+### Step 3: Run the Docker Container
+Start your API in Docker with:
+
+```bash
+docker run -p 3000:3000 -d typescript-book-api
+```
+
+Your API will now be available at `http://localhost:3000`.
+
 ## Exercise 3: Data Validation (Bonus)
 
 Add validation rules to your `validateBookData` method:
