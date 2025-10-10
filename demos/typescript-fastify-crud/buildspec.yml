@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login-password | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com)
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t fastify-crud-api .
+      - docker tag fastify-crud-api:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastify-crud-api:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastify-crud-api:latest
+      - echo Writing imagedefinitions.json file...
+      - printf '[{"name":"fastify-crud-api","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastify-crud-api:latest > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json

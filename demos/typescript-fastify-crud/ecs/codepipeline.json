@@ -1,0 +1,83 @@
+{
+  "pipeline": {
+    "name": "FastifyCrudApiPipeline",
+    "roleArn": "arn:aws:iam::<aws_account_id>:role/AWSCodePipelineServiceRole",
+    "artifactStore": {
+      "type": "S3",
+      "location": "<your-artifact-bucket>"
+    },
+    "stages": [
+      {
+        "name": "Source",
+        "actions": [
+          {
+            "name": "Source",
+            "actionTypeId": {
+              "category": "Source",
+              "owner": "AWS",
+              "provider": "GitHub",
+              "version": "1"
+            },
+            "outputArtifacts": [
+              { "name": "SourceOutput" }
+            ],
+            "configuration": {
+              "Owner": "<github-owner>",
+              "Repo": "<github-repo>",
+              "Branch": "main",
+              "OAuthToken": "<github-oauth-token>"
+            },
+            "runOrder": 1
+          }
+        ]
+      },
+      {
+        "name": "Build",
+        "actions": [
+          {
+            "name": "Build",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "inputArtifacts": [
+              { "name": "SourceOutput" }
+            ],
+            "outputArtifacts": [
+              { "name": "BuildOutput" }
+            ],
+            "configuration": {
+              "ProjectName": "<codebuild-project-name>"
+            },
+            "runOrder": 1
+          }
+        ]
+      },
+      {
+        "name": "Deploy",
+        "actions": [
+          {
+            "name": "DeployToECS",
+            "actionTypeId": {
+              "category": "Deploy",
+              "owner": "AWS",
+              "provider": "ECS",
+              "version": "1"
+            },
+            "inputArtifacts": [
+              { "name": "BuildOutput" }
+            ],
+            "configuration": {
+              "ClusterName": "fastify-crud-cluster",
+              "ServiceName": "fastify-crud-service",
+              "FileName": "imagedefinitions.json"
+            },
+            "runOrder": 1
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "cluster": "fastify-crud-cluster",
+  "serviceName": "fastify-crud-service",
+  "taskDefinition": "fastify-crud-task",
+  "desiredCount": 1,
+  "launchType": "FARGATE",
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": ["<subnet-id>", "<subnet-id>"] ,
+      "securityGroups": ["<security-group-id>"],
+      "assignPublicIp": "ENABLED"
+    }
+  },
+  "loadBalancers": [],
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 100
+  }
+}
