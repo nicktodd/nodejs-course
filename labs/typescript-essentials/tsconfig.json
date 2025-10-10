@@ -1,13 +1,25 @@
 {
+  // compilerOptions controls how TypeScript compiles your code
   "compilerOptions": {
+    // target: sets the JavaScript version output (e.g., ES2020)
     "target": "es2020",
+    // module: specifies the module system (e.g., CommonJS for Node.js)
     "module": "commonjs",
+    // strict: enables all strict type-checking options
     "strict": true,
+    // esModuleInterop: allows default imports from modules with no default export
     "esModuleInterop": true,
+    // skipLibCheck: skips type checking of declaration files (*.d.ts) for faster builds
     "skipLibCheck": true,
+    // forceConsistentCasingInFileNames: ensures file imports use consistent casing
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+  // outDir: sets the output directory for compiled JavaScript files
+  "outDir": "./dist",
+  // lib: specifies which JavaScript built-in APIs are available for type checking (e.g., ES2023)
+  "lib": ["es2023"]
   },
+  // include: tells TypeScript which files to compile (all .ts files in this folder)
   "include": ["./**/*.ts"],
+  // exclude: tells TypeScript which files/folders to ignore (node_modules is ignored)
   "exclude": ["node_modules"]
 }
