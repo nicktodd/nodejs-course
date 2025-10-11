@@ -4,6 +4,9 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+       # Login to ECR Public
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+      # Login to ECR Private
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
       - aws ecr get-login-password --region $AWS_REGION  | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
   build:
