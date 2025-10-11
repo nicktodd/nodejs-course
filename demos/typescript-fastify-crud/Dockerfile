@@ -9,7 +9,7 @@ COPY src ./src
 RUN npm run build
 
 # Stage 2: Production image
-FROM node:20-alpine AS production
+FROM public.ecr.aws/docker/library/node:18-alpine AS production
 WORKDIR /app
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
