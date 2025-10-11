@@ -6,181 +6,179 @@ interface UserParams {
   id: string;
 }
 
+// JSON Schemas for validation
+const userParamsSchema = {
+  type: 'object',
+  properties: {
+    id: { type: 'string', pattern: '^[0-9]+$' }
+  },
+  required: ['id']
+};
+
+const userProperties = {
+  name: { type: 'string', minLength: 2, maxLength: 50 },
+  email: { type: 'string', format: 'email' },
+  age: { type: 'integer', minimum: 1, maximum: 120 }
+};
+
+const createUserSchema = {
+  type: 'object',
+  required: ['name', 'email', 'age'],
+  properties: userProperties
+};
+
+const updateUserSchema = {
+  type: 'object',
+  properties: userProperties
+};
+
+const userResponseSchema = {
+  type: 'object',
+  properties: {
+    success: { type: 'boolean' },
+    data: {
+      type: 'object',
+      properties: {
+        id: { type: 'integer' },
+        name: { type: 'string' },
+        email: { type: 'string' },
+        age: { type: 'integer' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' }
+      },
+      required: ['id', 'name', 'email', 'age', 'createdAt', 'updatedAt']
+    },
+    message: { type: 'string' }
+  },
+  required: ['success', 'data', 'message']
+};
+
+const usersResponseSchema = {
+  type: 'object',
+  properties: {
+    success: { type: 'boolean' },
+    data: {
+      type: 'array',
+      items: userResponseSchema.properties.data
+    },
+    message: { type: 'string' }
+  },
+  required: ['success', 'data', 'message']
+};
+
 export async function userRoutes(fastify: FastifyInstance) {
   // GET /users - Get all users
-  fastify.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-    try {
-      const users = userService.getAllUsers();
-      return reply.code(200).send({
-        success: true,
-        data: users,
-        message: `Found ${users.length} users`
-      });
-    } catch (error) {
-      return reply.code(500).send({
-        success: false,
-        message: 'Internal server error while fetching users'
-      });
+  fastify.get('/users', {
+    schema: {
+      response: {
+        200: usersResponseSchema
+      }
     }
+  }, async (request: FastifyRequest, reply: FastifyReply) => {
+    const users = userService.getAllUsers();
+    return reply.code(200).send({
+      success: true,
+      data: users,
+      message: `Found ${users.length} users`
+    });
   });
 
   // GET /users/:id - Get user by ID
-  fastify.get<{ Params: UserParams }>('/users/:id', async (request: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) => {
-    try {
-      const userId = parseInt(request.params.id);
-      
-      if (isNaN(userId)) {
-        return reply.code(400).send({
-          success: false,
-          message: 'Invalid user ID. ID must be a number'
-        });
+  fastify.get<{ Params: UserParams }>('/users/:id', {
+    schema: {
+      params: userParamsSchema,
+      response: {
+        200: userResponseSchema,
+        404: {
+          type: 'object',
+          properties: {
+            success: { type: 'boolean' },
+            message: { type: 'string' }
+          },
+          required: ['success', 'message']
+        }
       }
-
-      const user = userService.getUserById(userId);
-      
-      if (!user) {
-        return reply.code(404).send({
-          success: false,
-          message: `User with ID ${userId} not found`
-        });
-      }
-
-      return reply.code(200).send({
-        success: true,
-        data: user,
-        message: 'User found successfully'
-      });
-    } catch (error) {
-      return reply.code(500).send({
+    }
+  }, async (request: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) => {
+    const userId = parseInt(request.params.id);
+    const user = userService.getUserById(userId);
+    if (!user) {
+      return reply.code(404).send({
         success: false,
-        message: 'Internal server error while fetching user'
+        message: `User with ID ${userId} not found`
       });
     }
+    return reply.code(200).send({
+      success: true,
+      data: user,
+      message: 'User found successfully'
+    });
   });
 
   // POST /users - Create a new user
-  fastify.post<{ Body: CreateUserRequest }>('/users', async (request: FastifyRequest<{ Body: CreateUserRequest }>, reply: FastifyReply) => {
-    try {
-      const userData = request.body;
-
-      // Validate required fields
-      const validationErrors = userService.validateUserData(userData);
-      if (validationErrors.length > 0) {
-        return reply.code(400).send({
-          success: false,
-          message: 'Validation failed',
-          errors: validationErrors
-        });
-      }
-
-      // Check if email already exists
-      if (userService.emailExists(userData.email)) {
-        return reply.code(409).send({
-          success: false,
-          message: 'User with this email already exists'
-        });
-      }
-
-      const newUser = userService.createUser(userData);
-      
-      return reply.code(201).send({
-        success: true,
-        data: newUser,
-        message: 'User created successfully'
-      });
-    } catch (error) {
-      return reply.code(500).send({
+  fastify.post<{ Body: CreateUserRequest }>('/users', {
+    schema: { body: createUserSchema }
+  }, async (request: FastifyRequest<{ Body: CreateUserRequest }>, reply: FastifyReply) => {
+    const userData = request.body;
+    // Check if email already exists
+    if (userService.emailExists(userData.email)) {
+      return reply.code(409).send({
         success: false,
-        message: 'Internal server error while creating user'
+        message: 'User with this email already exists'
       });
     }
+    const newUser = userService.createUser(userData);
+    return reply.code(201).send({
+      success: true,
+      data: newUser,
+      message: 'User created successfully'
+    });
   });
 
   // PUT /users/:id - Update user by ID
-  fastify.put<{ Params: UserParams; Body: UpdateUserRequest }>('/users/:id', async (request: FastifyRequest<{ Params: UserParams; Body: UpdateUserRequest }>, reply: FastifyReply) => {
-    try {
-      const userId = parseInt(request.params.id);
-      const userData = request.body;
-
-      if (isNaN(userId)) {
-        return reply.code(400).send({
-          success: false,
-          message: 'Invalid user ID. ID must be a number'
-        });
-      }
-
-      // Check if user exists
-      const existingUser = userService.getUserById(userId);
-      if (!existingUser) {
-        return reply.code(404).send({
-          success: false,
-          message: `User with ID ${userId} not found`
-        });
-      }
-
-      // Validate the update data
-      const validationErrors = userService.validateUserData(userData);
-      if (validationErrors.length > 0) {
-        return reply.code(400).send({
-          success: false,
-          message: 'Validation failed',
-          errors: validationErrors
-        });
-      }
-
-      // Check if email already exists (excluding current user)
-      if (userData.email && userService.emailExists(userData.email, userId)) {
-        return reply.code(409).send({
-          success: false,
-          message: 'User with this email already exists'
-        });
-      }
-
-      const updatedUser = userService.updateUser(userId, userData);
-      
-      return reply.code(200).send({
-        success: true,
-        data: updatedUser,
-        message: 'User updated successfully'
-      });
-    } catch (error) {
-      return reply.code(500).send({
+  fastify.put<{ Params: UserParams; Body: UpdateUserRequest }>('/users/:id', {
+    schema: { params: userParamsSchema, body: updateUserSchema }
+  }, async (request: FastifyRequest<{ Params: UserParams; Body: UpdateUserRequest }>, reply: FastifyReply) => {
+    const userId = parseInt(request.params.id);
+    const userData = request.body;
+    // Check if user exists
+    const existingUser = userService.getUserById(userId);
+    if (!existingUser) {
+      return reply.code(404).send({
         success: false,
-        message: 'Internal server error while updating user'
+        message: `User with ID ${userId} not found`
       });
     }
+    // Check if email already exists (excluding current user)
+    if (userData.email && userService.emailExists(userData.email, userId)) {
+      return reply.code(409).send({
+        success: false,
+        message: 'User with this email already exists'
+      });
+    }
+    const updatedUser = userService.updateUser(userId, userData);
+    return reply.code(200).send({
+      success: true,
+      data: updatedUser,
+      message: 'User updated successfully'
+    });
   });
 
   // DELETE /users/:id - Delete user by ID
-  fastify.delete<{ Params: UserParams }>('/users/:id', async (request: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) => {
-    try {
-      const userId = parseInt(request.params.id);
-
-      if (isNaN(userId)) {
-        return reply.code(400).send({
-          success: false,
-          message: 'Invalid user ID. ID must be a number'
-        });
-      }
-
-      const deleted = userService.deleteUser(userId);
-      
-      if (!deleted) {
-        return reply.code(404).send({
-          success: false,
-          message: `User with ID ${userId} not found`
-        });
-      }
-
-      return reply.code(200).send({
-        success: true,
-        message: 'User deleted successfully'
-      });
-    } catch (error) {
-      return reply.code(500).send({
+  fastify.delete<{ Params: UserParams }>('/users/:id', {
+    schema: { params: userParamsSchema }
+  }, async (request: FastifyRequest<{ Params: UserParams }>, reply: FastifyReply) => {
+    const userId = parseInt(request.params.id);
+    const deleted = userService.deleteUser(userId);
+    if (!deleted) {
+      return reply.code(404).send({
         success: false,
-        message: 'Internal server error while deleting user'
+        message: `User with ID ${userId} not found`
       });
     }
+    return reply.code(200).send({
+      success: true,
+      message: 'User deleted successfully'
+    });
   });
 }

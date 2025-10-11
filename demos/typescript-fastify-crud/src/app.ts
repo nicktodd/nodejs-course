@@ -14,6 +14,16 @@ fastify.register(cors, {
 // Register user routes
 fastify.register(userRoutes);
 
+// Add a global error handler
+// handles all errors thrown in routes and plugins and returns a JSON response
+fastify.setErrorHandler((error, request, reply) => {
+  // Customize error response structure here
+  reply.status(error.statusCode || 500).send({
+    success: false,
+    error: error.message,
+  });
+});
+
 // Add a health check endpoint
 fastify.get('/health', async (request, reply) => {
   return { 
@@ -49,9 +59,9 @@ const start = async () => {
     const host = process.env.HOST || '0.0.0.0';
     
     await fastify.listen({ port, host });
-    console.log(`🚀 Server is running at http://${host}:${port}`);
-    console.log(`📚 API Documentation available at http://${host}:${port}`);
-    console.log(`❤️ Health check available at http://${host}:${port}/health`);
+    console.log(`Server is running at http://${host}:${port}`);
+    console.log(`API Documentation available at http://${host}:${port}`);
+    console.log(`Health check available at http://${host}:${port}/health`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
@@ -60,13 +70,13 @@ const start = async () => {
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {
-  console.log('\n🛑 Received SIGINT, shutting down gracefully...');
+  console.log('\n Received SIGINT, shutting down gracefully...');
   try {
     await fastify.close();
-    console.log('✅ Server closed successfully');
+    console.log('Server closed successfully');
     process.exit(0);
   } catch (err) {
-    console.error('❌ Error during shutdown:', err);
+    console.error('Error during shutdown:', err);
     process.exit(1);
   }
 });

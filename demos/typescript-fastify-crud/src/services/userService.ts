@@ -82,41 +82,6 @@ class UserService {
     return true;
   }
 
-  validateUserData(userData: CreateUserRequest | UpdateUserRequest): string[] {
-    const errors: string[] = [];
-
-    if ('name' in userData) {
-      if (!userData.name || userData.name.trim().length === 0) {
-        errors.push('Name is required and cannot be empty');
-      } else if (userData.name.length < 2 || userData.name.length > 50) {
-        errors.push('Name must be between 2 and 50 characters');
-      }
-    }
-
-    if ('email' in userData) {
-      if (!userData.email || userData.email.trim().length === 0) {
-        errors.push('Email is required and cannot be empty');
-      } else if (!this.isValidEmail(userData.email)) {
-        errors.push('Email format is invalid');
-      }
-    }
-
-    if ('age' in userData) {
-      if (userData.age === undefined || userData.age === null) {
-        errors.push('Age is required');
-      } else if (!Number.isInteger(userData.age) || userData.age < 1 || userData.age > 120) {
-        errors.push('Age must be a valid integer between 1 and 120');
-      }
-    }
-
-    return errors;
-  }
-
-  private isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
   emailExists(email: string, excludeId?: number): boolean {
     return this.users.some(user => 
       user.email.toLowerCase() === email.toLowerCase() && 
