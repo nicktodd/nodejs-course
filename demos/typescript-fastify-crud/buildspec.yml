@@ -9,6 +9,7 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
+      - cd ./demos/typescript-fastify-crud
       - docker build -t fastify-crud-api .
       - docker tag fastify-crud-api:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastify-crud-api:latest
   post_build:
