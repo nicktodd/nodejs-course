@@ -10,6 +10,7 @@ This course will teach you how to use Playwright for modern API testing, from se
 - Project setup and configuration files
 - Writing your first API test
 - Understanding request and response handling
+- [Demos](demos/playwright-basic/README.md)
 - [Lab Instructions](labs/basic-playwright/README.md)
 - [Solutions](solutions/basic-playwright/)
 
@@ -27,6 +28,7 @@ This course will teach you how to use Playwright for modern API testing, from se
 - Test data management and fixtures for APIs
 - Handling dynamic data and response chaining
 - Working with file uploads and downloads
+- [Redirecting with Nock](demos/playwright-nock/README.md)
 - [Lab Instructions](labs/playwright-advanced-features/README.md)
 - [Solutions](solutions/playwright-advanced-features/)
 
@@ -37,6 +39,16 @@ This course will teach you how to use Playwright for modern API testing, from se
 - Microservices testing strategies
 - [Lab Instructions](labs/playwright-graphql/README.md)
 - [Solutions](solutions/playwright-graphql/)
+
+
+### 6. Testing Authentication and Error Conditions and Non-Functional Requirements
+- Authentication
+- Throttling, Rate Limiting and Resilience
+- Error conditions
+- [Artillery Demonstrations](demos/artillery/)
+- [Lab Instructions](labs/playwright-advanced-features/README.md)
+- [Additional Lab](demos/playwright-advanced-features/README.md)
+- [Solutions](solutions/playwright-advanced-features/)
 
 
 
