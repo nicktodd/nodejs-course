@@ -40,7 +40,7 @@ class Circle extends Shape {
 const a: Animal = new Dog("Rex");
 a.speak();
 if (a instanceof Dog) {
-  (a as Dog).speak();
+  console.log('It is indeed a Dog.');
 }
 
 const s: Shape = new Circle(5);

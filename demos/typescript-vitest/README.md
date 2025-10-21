@@ -14,46 +14,6 @@ This demo implements a **Speaking Clock** system that demonstrates various mocki
 4. **SpeakingClock Module** - Main orchestrator that coordinates all components
 5. **Publisher/Subscriber Pattern** - Demonstrates function mocking and observer pattern
 
-### Key Learning Objectives
-- **Module Mocking**: Mock entire modules and their exports
-- **Function Mocking**: Mock individual functions and methods
-- **Type Safety**: Leverage TypeScript for better test reliability
-- **Async Testing**: Handle asynchronous operations in tests
-- **Spy Functions**: Monitor function calls and arguments
-- **Mock Assertions**: Verify mock interactions and call counts
-
-## Migration from Jest to Vitest
-
-### Key Differences
-
-| Aspect | Jest | Vitest |
-|--------|------|--------|
-| **Performance** | Slower startup and execution | Fast startup with Vite's bundling |
-| **TypeScript** | Requires additional setup | Native TypeScript support |
-| **ES Modules** | Limited ESM support | Full ESM support out of the box |
-| **Configuration** | `jest.config.js` | `vitest.config.ts` |
-| **Mocking API** | `jest.mock()`, `jest.fn()` | `vi.mock()`, `vi.fn()` |
-| **Globals** | `describe`, `it`, `expect` | Same API, but imported from 'vitest' |
-
-### Migration Examples
-
-**Jest Syntax:**
-```javascript
-const Clock = require("../src/Clock");
-jest.mock("../src/Clock");
-jest.spyOn(Clock, "getTime").mockReturnValue(testDate);
-expect(Clock.getTime).toBeCalledTimes(1);
-```
-
-**Vitest Syntax:**
-```typescript
-import { vi } from 'vitest';
-import { Clock } from '../src/Clock.js';
-vi.mock('../src/Clock.js');
-const mockClock = vi.mocked(Clock);
-mockClock.getTime.mockReturnValue(testDate);
-expect(Clock.getTime).toHaveBeenCalledTimes(1);
-```
 
 ## Project Structure
 

@@ -40,7 +40,7 @@ By the end of this lab, you will be able to:
 ## Lab Files Structure
 
 ### Exercise Files
-- **`starter.ts`** - 🎯 **START HERE** - Simplified exercise with clear TODO sections
+- **`starter.ts`** - **START HERE** - Simplified exercise with clear TODO sections
 - **`index.ts`** - Advanced exercise file with comprehensive examples
 - **`test.ts`** - Test runner to verify your implementations
 
