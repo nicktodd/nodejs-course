@@ -66,6 +66,8 @@ Create utility functions that work with any type.
 - Takes an array of `T` and a key function `(item: T) => K`
 - Returns a `Map<K, T[]>` where items are grouped by the key
 
+
+
 ### Exercise 3: Generic Constraints
 
 Learn how to restrict generic types using constraints.
