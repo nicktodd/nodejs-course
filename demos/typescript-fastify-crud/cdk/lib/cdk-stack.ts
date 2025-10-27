@@ -55,7 +55,7 @@ export class FastifyPipelineStack extends cdk.Stack {
     });
 
     // Container Definition
-    const container = taskDefinition.addContainer('FastifyApiContainer', {
+    const container = taskDefinition.addContainer('fastify-crud-api', {
       image: ecs.ContainerImage.fromEcrRepository(ecrRepository, 'latest'),
       logging: ecs.LogDriver.awsLogs({
         logGroup: logGroup,
