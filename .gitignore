@@ -92,3 +92,4 @@ dist/
 
 .vscode
 .vscode/*
+demos/typescript-fastify-crud/cdk/bin/cdk.ts
