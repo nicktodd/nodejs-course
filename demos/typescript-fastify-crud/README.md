@@ -1,5 +1,13 @@
 # Fastify CRUD API with TypeScript - Demo
 
+## Known Deployment Issue for First Run of cdk deploy to a fresh install
+The current live deployment of this application is using an existing CodeBuild job.
+This means that when the CodePipeline is created, the CodeBuild job will require
+it's policy file to have permissions edited to be able to access the KMS key created by this CDK project. So on first deployment of this CDK project, a manual edit of the CodeBuild policy is required to be able to reference the KMS key created for the artifact bucket. The artifact bucket does not need to be edited as we have used a wildcard for the final part of the bucket name.
+
+
+
+
 This demo showcases a complete CRUD (Create, Read, Update, Delete) API built with Fastify and TypeScript. This example demonstrates:
 
 - Setting up a Fastify server with TypeScript
