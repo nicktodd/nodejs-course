@@ -9,9 +9,8 @@ new FastifyPipelineStack(app, 'FastifyPipelineStack', {
     region: 'eu-west-1' 
   },
   // GitHub configuration - UPDATE THESE VALUES
-  gitHubOwner: 'YOUR_GITHUB_USERNAME',     // Replace with your GitHub username
-  gitHubRepo: 'YOUR_REPOSITORY_NAME',      // Replace with your repository name
-  gitHubBranch: 'main',                    // Or your default branch
-  codeStarConnectionArn: 'arn:aws:codestar-connections:eu-west-1:YOUR_ACCOUNT_ID:connection/CONNECTION_ID', // Replace with your CodeStar connection ARN
-  existingCodeBuildProjectName: 'FastifyDeploymentDemo',
+  gitHubOwner: 'nicktodd',     // Replace with your GitHub username
+  gitHubRepo: 'nodejs-course',      // Replace with your repository name
+  gitHubBranch: 'master',                    // Or your default branch
+  codeStarConnectionArn: "arn:aws:codeconnections:eu-west-1:149465616946:connection/0a306da5-0971-4bed-91e9-b904865cf959",
 });

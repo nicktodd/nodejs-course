@@ -20,6 +20,7 @@ phases:
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastify-crud-api:latest
       - echo Writing imagedefinitions.json file...
+      - cd $CODEBUILD_SRC_DIR
       - printf '[{"name":"fastify-crud-api","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fastify-crud-api:latest > imagedefinitions.json
 artifacts:
   files:
