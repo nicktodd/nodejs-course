@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>REST API Basic Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Management System</h1>
+    
+    <!-- Users Table Section -->
+    <h2>Current Users</h2>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody id="usersTableBody">
+            <!-- User rows will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Add User Form Section -->
+    <div class="form-section">
+        <h2>Add New User</h2>
+        <form id="addUserForm">
+            <div class="form-group">
+                <label for="userName">Name:</label>
+                <input type="text" id="userName" name="userName" required minlength="2">
+                <div id="nameError" class="error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="userAge">Age:</label>
+                <input type="number" id="userAge" name="userAge" required min="1" max="120">
+                <div id="ageError" class="error"></div>
+            </div>
+            
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+
+    <script>
+        // API Base URL - the REST API is running on port 5000
+        const API_URL = 'http://localhost:5000';
+
+        /**
+         * GET request: Fetch all users from the API and display them in the table
+         * Uses async/await for cleaner asynchronous code
+         */
+        async function loadUsers() {
+            try {
+                // Make GET request to fetch all users
+                const response = await fetch(`${API_URL}/users`);
+                
+                // Parse the JSON response
+                const users = await response.json();
+                
+                // Display the users in the table
+                displayUsers(users);
+                
+            } catch (error) {
+                console.error('Error loading users:', error);
+                alert('Error loading users. Make sure the API is running on port 5000.');
+            }
+        }
+
+        /**
+         * Display users in the HTML table
+         * @param {Array} users - Array of user objects with name and age properties
+         */
+        function displayUsers(users) {
+            const tableBody = document.getElementById('usersTableBody');
+            
+            // Clear existing table rows
+            tableBody.innerHTML = '';
+            
+            // Create a table row for each user
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        /**
+         * POST request: Add a new user via POST request to the API
+         * @param {Object} userData - Object containing name and age
+         */
+        async function addUser(userData) {
+            try {
+                // Make POST request to add a new user
+                const response = await fetch(`${API_URL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                // Parse the response
+                const result = await response.json();
+                
+                // Show success message
+                alert(result.message);
+                
+                // Reload the users table to show the new user
+                await loadUsers();
+                
+                // Reset the form
+                document.getElementById('addUserForm').reset();
+                
+            } catch (error) {
+                console.error('Error adding user:', error);
+                alert('Error adding user. Please try again.');
+            }
+        }
+
+        /**
+         * Validate form input before submission
+         * @param {string} name - User's name
+         * @param {number} age - User's age
+         * @returns {boolean} True if valid, false otherwise
+         */
+        function validateForm(name, age) {
+            // Clear previous error messages
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('ageError').textContent = '';
+
+            let isValid = true;
+
+            // Validate name
+            if (!name || name.trim().length < 2) {
+                document.getElementById('nameError').textContent = 'Name must be at least 2 characters long';
+                isValid = false;
+            }
+
+            // Validate age
+            if (!age || age < 1 || age > 120) {
+                document.getElementById('ageError').textContent = 'Age must be between 1 and 120';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Event listener for form submission
+        document.getElementById('addUserForm').addEventListener('submit', async (event) => {
+            // Prevent default form submission behavior (page reload)
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('userName').value.trim();
+            const age = parseInt(document.getElementById('userAge').value);
+            
+            // Validate the form
+            if (!validateForm(name, age)) {
+                return;
+            }
+            
+            // Create user object
+            const userData = {
+                name: name,
+                age: age
+            };
+            
+            // Add the user via API
+            await addUser(userData);
+        });
+
+        // Load users when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsers();
+        });
+    </script>
+</body>
+</html>

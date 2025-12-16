@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>REST API Complete Client - Full CRUD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        .btn-update {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-update:hover {
+            background-color: #0b7dda;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        .btn-cancel {
+            background-color: #9E9E9E;
+            color: white;
+        }
+        .btn-cancel:hover {
+            background-color: #757575;
+        }
+        .error {
+            color: #f44336;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .success {
+            color: #4CAF50;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .message-box {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .message-box.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .message-box.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .hidden {
+            display: none;
+        }
+        .form-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Complete REST API Client - Full CRUD Operations</h1>
+    
+    <!-- Message Display Area -->
+    <div id="messageBox" class="message-box"></div>
+
+    <!-- Users Table Section -->
+    <h2>Current Users</h2>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="usersTableBody">
+            <!-- User rows will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Add User Form Section -->
+    <div class="form-section" id="addUserSection">
+        <h2>➕ Add New User</h2>
+        <form id="addUserForm">
+            <div class="form-group">
+                <label for="addUserName">Name:</label>
+                <input type="text" id="addUserName" name="addUserName" required minlength="2">
+                <div id="addNameError" class="error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="addUserAge">Age:</label>
+                <input type="number" id="addUserAge" name="addUserAge" required min="1" max="120">
+                <div id="addAgeError" class="error"></div>
+            </div>
+            
+            <button type="submit" class="btn-primary">Add User</button>
+        </form>
+    </div>
+
+    <!-- Update User Form Section (Hidden by default) -->
+    <div class="form-section hidden" id="updateUserSection">
+        <h2>✏️ Update User</h2>
+        <form id="updateUserForm">
+            <div class="form-group">
+                <label for="updateUserName">Name:</label>
+                <input type="text" id="updateUserName" name="updateUserName" required minlength="2">
+                <div id="updateNameError" class="error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="updateUserAge">Age:</label>
+                <input type="number" id="updateUserAge" name="updateUserAge" required min="1" max="120">
+                <div id="updateAgeError" class="error"></div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn-update">Update User</button>
+                <button type="button" class="btn-cancel" onclick="cancelUpdate()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // API Base URL - the REST API is running on port 5000
+        const API_URL = 'http://localhost:5000';
+        
+        // Store the original name of the user being updated
+        let originalUserName = '';
+
+        /**
+         * Display a message to the user
+         * @param {string} message - The message to display
+         * @param {string} type - 'success' or 'error'
+         */
+        function showMessage(message, type = 'success') {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.className = `message-box ${type}`;
+            messageBox.style.display = 'block';
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+
+        /**
+         * GET request: Fetch all users from the API and display them in the table
+         * Uses async/await for cleaner asynchronous code
+         */
+        async function loadUsers() {
+            try {
+                // Make GET request to fetch all users
+                const response = await fetch(`${API_URL}/users`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Parse the JSON response
+                const users = await response.json();
+                
+                // Display the users in the table
+                displayUsers(users);
+                
+            } catch (error) {
+                console.error('Error loading users:', error);
+                showMessage('Error loading users. Make sure the API is running on port 5000.', 'error');
+            }
+        }
+
+        /**
+         * Display users in the HTML table
+         * @param {Array} users - Array of user objects with name and age properties
+         */
+        function displayUsers(users) {
+            const tableBody = document.getElementById('usersTableBody');
+            
+            // Clear existing table rows
+            tableBody.innerHTML = '';
+            
+            // Create a table row for each user
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-update" onclick="showUpdateForm('${user.name}', ${user.age})">
+                                Edit
+                            </button>
+                            <button class="btn-delete" onclick="deleteUser('${user.name}')">
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // If no users, show a message
+            if (users.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="3" style="text-align: center;">No users found. Add one above!</td>`;
+                tableBody.appendChild(row);
+            }
+        }
+
+        /**
+         * POST request: Add a new user via POST request to the API
+         * @param {Object} userData - Object containing name and age
+         */
+        async function addUser(userData) {
+            try {
+                // Make POST request to add a new user
+                const response = await fetch(`${API_URL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Parse the response
+                const result = await response.json();
+                
+                // Show success message
+                showMessage(result.message, 'success');
+                
+                // Reload the users table to show the new user
+                await loadUsers();
+                
+                // Reset the form
+                document.getElementById('addUserForm').reset();
+                clearAddFormErrors();
+                
+            } catch (error) {
+                console.error('Error adding user:', error);
+                showMessage('Error adding user. Please try again.', 'error');
+            }
+        }
+
+        /**
+         * PUT request: Update an existing user
+         * @param {string} originalName - The original name of the user (used in URL)
+         * @param {Object} userData - Object containing updated name and age
+         */
+        async function updateUser(originalName, userData) {
+            try {
+                // Make PUT request to update the user
+                const response = await fetch(`${API_URL}/users/${originalName}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Parse the response
+                const result = await response.json();
+                
+                // Show success message
+                showMessage(result.message, 'success');
+                
+                // Reload the users table
+                await loadUsers();
+                
+                // Hide the update form and show the add form
+                cancelUpdate();
+                
+            } catch (error) {
+                console.error('Error updating user:', error);
+                showMessage('Error updating user. Please try again.', 'error');
+            }
+        }
+
+        /**
+         * DELETE request: Delete a user
+         * @param {string} name - The name of the user to delete
+         */
+        async function deleteUser(name) {
+            // Confirm before deleting
+            if (!confirm(`Are you sure you want to delete user "${name}"?`)) {
+                return;
+            }
+            
+            try {
+                // Make DELETE request
+                const response = await fetch(`${API_URL}/users/${name}`, {
+                    method: 'DELETE'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Parse the response
+                const result = await response.json();
+                
+                // Show success message
+                showMessage(result.message, 'success');
+                
+                // Reload the users table
+                await loadUsers();
+                
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                showMessage('Error deleting user. Please try again.', 'error');
+            }
+        }
+
+        /**
+         * Show the update form and populate it with user data
+         * @param {string} name - User's name
+         * @param {number} age - User's age
+         */
+        function showUpdateForm(name, age) {
+            // Store the original name
+            originalUserName = name;
+            
+            // Populate the form
+            document.getElementById('updateUserName').value = name;
+            document.getElementById('updateUserAge').value = age;
+            
+            // Hide add form, show update form
+            document.getElementById('addUserSection').classList.add('hidden');
+            document.getElementById('updateUserSection').classList.remove('hidden');
+            
+            // Scroll to the form
+            document.getElementById('updateUserSection').scrollIntoView({ behavior: 'smooth' });
+            
+            // Clear any previous errors
+            clearUpdateFormErrors();
+        }
+
+        /**
+         * Cancel update and return to add form
+         */
+        function cancelUpdate() {
+            // Show add form, hide update form
+            document.getElementById('addUserSection').classList.remove('hidden');
+            document.getElementById('updateUserSection').classList.add('hidden');
+            
+            // Reset the update form
+            document.getElementById('updateUserForm').reset();
+            clearUpdateFormErrors();
+            
+            // Clear the original name
+            originalUserName = '';
+        }
+
+        /**
+         * Validate form input
+         * @param {string} name - User's name
+         * @param {number} age - User's age
+         * @param {string} prefix - 'add' or 'update' to target correct error elements
+         * @returns {boolean} True if valid, false otherwise
+         */
+        function validateForm(name, age, prefix) {
+            // Clear previous error messages
+            document.getElementById(`${prefix}NameError`).textContent = '';
+            document.getElementById(`${prefix}AgeError`).textContent = '';
+
+            let isValid = true;
+
+            // Validate name
+            if (!name || name.trim().length < 2) {
+                document.getElementById(`${prefix}NameError`).textContent = 'Name must be at least 2 characters long';
+                isValid = false;
+            }
+
+            // Validate age
+            if (!age || age < 1 || age > 120) {
+                document.getElementById(`${prefix}AgeError`).textContent = 'Age must be between 1 and 120';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        /**
+         * Clear add form error messages
+         */
+        function clearAddFormErrors() {
+            document.getElementById('addNameError').textContent = '';
+            document.getElementById('addAgeError').textContent = '';
+        }
+
+        /**
+         * Clear update form error messages
+         */
+        function clearUpdateFormErrors() {
+            document.getElementById('updateNameError').textContent = '';
+            document.getElementById('updateAgeError').textContent = '';
+        }
+
+        // Event listener for ADD form submission
+        document.getElementById('addUserForm').addEventListener('submit', async (event) => {
+            // Prevent default form submission behavior (page reload)
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('addUserName').value.trim();
+            const age = parseInt(document.getElementById('addUserAge').value);
+            
+            // Validate the form
+            if (!validateForm(name, age, 'add')) {
+                return;
+            }
+            
+            // Create user object
+            const userData = {
+                name: name,
+                age: age
+            };
+            
+            // Add the user via API
+            await addUser(userData);
+        });
+
+        // Event listener for UPDATE form submission
+        document.getElementById('updateUserForm').addEventListener('submit', async (event) => {
+            // Prevent default form submission behavior (page reload)
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('updateUserName').value.trim();
+            const age = parseInt(document.getElementById('updateUserAge').value);
+            
+            // Validate the form
+            if (!validateForm(name, age, 'update')) {
+                return;
+            }
+            
+            // Create user object
+            const userData = {
+                name: name,
+                age: age
+            };
+            
+            // Update the user via API (using original name in URL)
+            await updateUser(originalUserName, userData);
+        });
+
+        // Load users when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsers();
+        });
+    </script>
+</body>
+</html>
