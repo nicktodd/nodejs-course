@@ -6,39 +6,44 @@
 - Create and run a simple JavaScript application
 - Practice debugging using console.log
 
+## Prerequisites
+- Basic terminal usage
+- Node.js installed locally
+- Completion of foundational JavaScript demos in this course
+
 ## Exercise 1: Temperature Converter
 Create a program that converts temperatures between Fahrenheit and Celsius.
 
 ### Requirements:
-1. Create variables for storing temperatures
-2. Implement both Fahrenheit to Celsius and Celsius to Fahrenheit conversions
-3. Use proper variable naming conventions
-4. Use template literals for output
-5. Display results with 2 decimal places
+1.1 Create variables for input temperatures in Fahrenheit and Celsius.
+1.2 Implement Fahrenheit to Celsius conversion using the provided formula.
+1.3 Implement Celsius to Fahrenheit conversion using the provided formula.
+1.4 Use descriptive variable names and template literals for output.
+1.5 Format numeric results to 2 decimal places.
 
 ### Formula:
-- Celsius to Fahrenheit: (C × 9/5) + 32
-- Fahrenheit to Celsius: (F - 32) × 5/9
+- Celsius to Fahrenheit: (C x 9/5) + 32
+- Fahrenheit to Celsius: (F - 32) x 5/9
 
 ### Expected Output:
 ```
 Temperature Converter
 --------------------
-32°F is 0.00°C
-0°C is 32.00°F
-98.6°F is 37.00°C
-37°C is 98.60°F
+32F is 0.00C
+0C is 32.00F
+98.6F is 37.00C
+37C is 98.60F
 ```
 
 ## Exercise 2: Simple Calculator
 Create a calculator that performs basic arithmetic operations.
 
 ### Requirements:
-1. Create variables for two numbers
-2. Implement addition, subtraction, multiplication, and division
-3. Use appropriate operators
-4. Handle division by zero
-5. Format output clearly
+2.1 Create variables for two numbers.
+2.2 Implement addition, subtraction, multiplication, and division.
+2.3 Use appropriate arithmetic operators for each operation.
+2.4 Handle division by zero with a clear message.
+2.5 Format output clearly for each calculation.
 
 ### Expected Output:
 ```
@@ -61,6 +66,11 @@ Add input validation to ensure numbers are within a reasonable range (e.g., betw
 - Comment your code to explain what it does
 
 ## Getting Started
-1. Create a new file called temperature.js for Exercise 1
-2. Create a new file called calculator.js for Exercise 2
-3. Run your code using Node.js: `node filename.js`
+1. Open the existing file temperature.js for Exercise 1.
+2. Open the existing file calculator.js for Exercise 2.
+3. Run your code with Node.js:
+
+```bash
+node temperature.js
+node calculator.js
+```
