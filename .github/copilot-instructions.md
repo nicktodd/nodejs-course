@@ -44,14 +44,14 @@ All code should be:
 
 ## Examples
 
-### ❌ Avoid (with emojis):
+### Avoid (with emojis):
 ```typescript
 console.log("🚀 Starting application");
 console.log("✅ Validation passed");
 console.log("❌ Error occurred");
 ```
 
-### ✅ Prefer (without emojis):
+### Prefer (without emojis):
 ```typescript
 console.log("STARTING: Application initialization");
 console.log("SUCCESS: Validation passed");
