@@ -99,36 +99,6 @@ tools:
 
 ---
 
-## How These Files Work Together
-
-```
-.github/
-  copilot-instructions.md        <- Always active; sets global conventions
-  instructions/
-    lab-reviewer.instructions.md <- Auto-applied when editing labs/**/README.md
-  prompts/
-    check-solution-health.prompt.md    <- Run on demand to audit a solution folder
-    file-dependency-issues.prompt.md   <- Run on demand to file GitHub Issues
-  agents/
-    lab-author.agent.md           <- Switch to this agent when writing/updating labs
-    solution-reviewer.agent.md    <- Switch to this agent for read-only audits
-  skills/
-    scaffold-lab/
-      SKILL.md                   <- Skill definition (name, description, instructions)
-      lab-readme-template.md     <- Supporting resource referenced by the skill
-      package-template.json      <- Supporting resource referenced by the skill
-```
-
-A typical workflow for a course maintainer might look like:
-
-1. Run `/scaffold-lab <name>` to create the lab and solution folder structure using the **scaffold-lab skill**
-2. Switch to the **Lab Author** agent to write and refine the lab README
-3. The **lab-reviewer instructions** are applied automatically as you work on `labs/**/README.md` files
-4. Run the **check-solution-health prompt** against the solution folder to verify it is ready
-5. Run the **file-dependency-issues prompt** periodically to track outdated packages via GitHub Issues
-
----
-
 ### `skills/` folder
 
 **What it is:** Agent skill directories, each containing a `SKILL.md` file that defines a reusable, on-demand capability. Skills are an open standard ([agentskills.io](https://agentskills.io)) and work across VS Code, GitHub Copilot CLI, and the Copilot cloud agent.
@@ -156,6 +126,36 @@ argument-hint: "[optional hint shown in the chat input]"
 | Extension skill | Shipped inside a VS Code extension | Extension developer — installed via the marketplace |
 
 **This repo uses it for:** `scaffold-lab` — scaffolds a new lab exercise including the README, solution folder, `package.json`, and `tsconfig.json`. Invoke it with `/scaffold-lab typescript-generics`.
+
+---
+
+## How These Files Work Together
+
+```
+.github/
+  copilot-instructions.md        <- Always active; sets global conventions
+  instructions/
+    lab-reviewer.instructions.md <- Auto-applied when editing labs/**/README.md
+  prompts/
+    check-solution-health.prompt.md    <- Run on demand to audit a solution folder
+    file-dependency-issues.prompt.md   <- Run on demand to file GitHub Issues
+  agents/
+    lab-author.agent.md           <- Switch to this agent when writing/updating labs
+    solution-reviewer.agent.md    <- Switch to this agent for read-only audits
+  skills/
+    scaffold-lab/
+      SKILL.md                   <- Skill definition (name, description, instructions)
+      lab-readme-template.md     <- Supporting resource referenced by the skill
+      package-template.json      <- Supporting resource referenced by the skill
+```
+
+A typical workflow for a course maintainer might look like:
+
+1. Run `/scaffold-lab <name>` to create the lab and solution folder structure using the **scaffold-lab skill**
+2. Switch to the **Lab Author** agent to write and refine the lab README
+3. The **lab-reviewer instructions** are applied automatically as you work on `labs/**/README.md` files
+4. Run the **check-solution-health prompt** against the solution folder to verify it is ready
+5. Run the **file-dependency-issues prompt** periodically to track outdated packages via GitHub Issues
 
 ---
 
