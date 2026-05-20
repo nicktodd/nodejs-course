@@ -111,20 +111,58 @@ tools:
   chatmodes/
     lab-author.chatmode.md        <- Switch to this mode when writing/updating labs
     solution-reviewer.chatmode.md <- Switch to this mode for read-only audits
+  skills/
+    scaffold-lab/
+      SKILL.md                   <- Skill definition (name, description, instructions)
+      lab-readme-template.md     <- Supporting resource referenced by the skill
+      package-template.json      <- Supporting resource referenced by the skill
 ```
 
 A typical workflow for a course maintainer might look like:
 
-1. Switch to **Lab Author** mode when creating a new lab exercise
-2. The **lab-reviewer instructions** are applied automatically as you work on `labs/**/README.md` files
-3. Run the **check-solution-health prompt** against the matching solution folder to verify it is ready
-4. Run the **file-dependency-issues prompt** periodically to track outdated packages via GitHub Issues
+1. Run `/scaffold-lab <name>` to create the lab and solution folder structure using the **scaffold-lab skill**
+2. Switch to **Lab Author** mode to write and refine the lab README
+3. The **lab-reviewer instructions** are applied automatically as you work on `labs/**/README.md` files
+4. Run the **check-solution-health prompt** against the solution folder to verify it is ready
+5. Run the **file-dependency-issues prompt** periodically to track outdated packages via GitHub Issues
+
+---
+
+### `skills/` folder
+
+**What it is:** Agent skill directories, each containing a `SKILL.md` file that defines a reusable, on-demand capability. Skills are an open standard ([agentskills.io](https://agentskills.io)) and work across VS Code, GitHub Copilot CLI, and the Copilot cloud agent.
+
+**When Copilot reads it:** On demand — either automatically when a user's request matches the skill's description, or manually when invoked as a `/skill-name` slash command.
+
+**Frontmatter fields:**
+
+```yaml
+---
+name: skill-name              # must match the parent directory name
+description: "What this skill does and when to use it. Be specific."
+argument-hint: "[optional hint shown in the chat input]"
+---
+```
+
+**What to put here:** Specialised, reusable procedures that you want Copilot to follow consistently — things like scaffolding a component, running a debugging procedure, or generating structured reports. Unlike prompt files, skills can include supporting resources (scripts, templates, examples) in the same directory, and you reference them with relative Markdown links in the `SKILL.md` body.
+
+**Skill types:**
+
+| Type | Location | Who authors it |
+|---|---|---|
+| Project skill | `.github/skills/` | Repo maintainer — available to anyone who clones the repo |
+| Personal skill | `~/.copilot/skills/` | Individual developer — private to their machine |
+| Extension skill | Shipped inside a VS Code extension | Extension developer — installed via the marketplace |
+
+**This repo uses it for:** `scaffold-lab` — scaffolds a new lab exercise including the README, solution folder, `package.json`, and `tsconfig.json`. Invoke it with `/scaffold-lab typescript-generics`.
 
 ---
 
 ## Further Reading
 
-- [Customising GitHub Copilot in VS Code](https://code.visualstudio.com/docs/copilot/copilot-customization)
-- [Copilot instructions files](https://code.visualstudio.com/docs/copilot/copilot-customization#_use-instructionfiles)
-- [Reusable prompt files](https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental)
-- [Custom chat modes](https://code.visualstudio.com/docs/copilot/chat/chat-modes#_custom-chat-modes)
+- [Customise AI in VS Code — overview](https://code.visualstudio.com/docs/copilot/customization/overview)
+- [Custom instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
+- [Reusable prompt files](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
+- [Agent skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
+- [Custom agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
+- [Agent Skills open standard](https://agentskills.io/)

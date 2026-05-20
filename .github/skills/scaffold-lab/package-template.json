@@ -1,0 +1,16 @@
+{
+  "name": "{{LAB_NAME}}",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "vitest run",
+    "dev": "ts-node --watch src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "vitest": "^1.0.0"
+  }
+}
